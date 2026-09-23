@@ -192,7 +192,6 @@
   #tabBalances.active { color: #A78BFA !important; border-bottom: 3px solid #A78BFA; }
   #tabPSP.active { color: #F5F5F5 !important; border-bottom: 3px solid #F5F5F5; }
   #tabCrypto.active { color: #3B82F6 !important; border-bottom: 3px solid #3B82F6; }
-  #tabCryptoSnap.active { color: #0ABAB5 !important; border-bottom: 3px solid #0ABAB5; }
   #tabInvoiceList.active { color: #FF8C00 !important; border-bottom: 3px solid #FF8C00; }
   #tabForecast.active { color: #22C55E !important; border-bottom: 3px solid #22C55E; }
   #tabLiveTest.active { color: #F87171 !important; border-bottom: 3px solid #F87171; }
@@ -986,43 +985,50 @@
     .subtitle { color: #444 !important; }
     #viewInvoiceList, #viewPSP { display: none !important; }
   }
-  /* ===== Crypto Snapshot tab (ported from standalone artifact) ===== */
-  .cryptosnap-kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
-  .cryptosnap-kpi { background: #1a1a1a; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 6px rgba(0,0,0,0.5); border: 1px solid #0ABAB5; }
-  .cryptosnap-kpi-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-  .cryptosnap-kpi-value { font-size: 20px; font-weight: 700; color: #f0f0f0; }
-  .cryptosnap-kpi-change { font-size: 12px; margin-top: 4px; }
-  .cryptosnap-pos { color: #0ABAB5; }
-  .cryptosnap-neg { color: #ff3b30; }
-  .cryptosnap-neu { color: #888; }
-  .cryptosnap-charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px; }
   .cryptosnap-card { background: #1a1a1a; border-radius: 12px; padding: 16px; box-shadow: 0 1px 6px rgba(0,0,0,0.5); }
   .cryptosnap-card h2 { font-size: 14px; font-weight: 600; margin-bottom: 14px; color: #f0f0f0; }
-  .cryptosnap-section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-  .cryptosnap-card table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .cryptosnap-card th { text-align: left; padding: 8px 10px; font-weight: 600; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 1px solid #2a2a2a; }
-  .cryptosnap-card td { padding: 8px 10px; border-bottom: 1px solid #222; color: #d0d0d0; }
-  .cryptosnap-card tr:last-child td { border-bottom: none; }
-  .cryptosnap-badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; background: #2a2a2a; color: #d0d0d0; }
-  .cryptosnap-ts { color: #888; font-size: 11px; }
-  .cryptosnap-card canvas { max-height: 220px; }
-  .cryptosnap-no-data { color: #888; text-align: center; padding: 40px; font-size: 13px; }
   .cryptosnap-history-count { font-size: 11px; color: #888; font-weight: normal; margin-left: 6px; }
-  .cryptosnap-parent-row { cursor: pointer; user-select: none; }
-  .cryptosnap-parent-row:hover td { background: #222; }
-  .cryptosnap-toggle { display: inline-block; width: 14px; font-size: 10px; color: #555; transition: transform 0.15s; }
-  .cryptosnap-toggle.cryptosnap-open { transform: rotate(90deg); }
-  .cryptosnap-asset-row td { font-size: 12px; color: #888; background: #141414; border-bottom: 1px solid #1e1e1e; }
-  .cryptosnap-asset-row td:first-child { padding-left: 32px; }
-  .cryptosnap-asset-sym { font-weight: 600; color: #d0d0d0; }
-  .cryptosnap-total-row td { font-weight: 600; background: #1e1e1e; color: #f0f0f0; }
-  .cryptosnap-currency-bar-wrap { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 16px; gap: 1px; }
-  .cryptosnap-currency-bar-seg { height: 100%; transition: opacity 0.15s; }
-  .cryptosnap-hidden { display: none; }
-  @media (max-width: 700px) {
-    .cryptosnap-kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .cryptosnap-charts-row, .cryptosnap-section-grid { grid-template-columns: 1fr; }
+  .cryptosnap-no-data { color: #888; text-align: center; padding: 40px; font-size: 13px; }
+  .crypto-price-carousel-wrap {
+    background: #000000;
+    border: 1px solid #3B82F6;
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 1px 6px rgba(59,130,246,0.15);
   }
+  .crypto-price-carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #3B82F6;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .crypto-price-carousel {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 4px;
+  }
+  .crypto-price-carousel::-webkit-scrollbar { height: 5px; }
+  .crypto-price-carousel::-webkit-scrollbar-thumb { background: #3B82F644; border-radius: 3px; }
+  .crypto-price-tile {
+    flex: 0 0 auto;
+    min-width: 110px;
+    background: #0d0d0d;
+    border: 1px solid #2A2A2A;
+    border-radius: 6px;
+    padding: 8px 12px;
+  }
+  .crypto-price-tile .cpt-symbol { font-size: 11px; font-weight: bold; color: #EAEAEA; text-transform: uppercase; }
+  .crypto-price-tile .cpt-price { font-size: 15px; font-weight: bold; color: #EAEAEA; margin-top: 3px; }
+  .crypto-price-tile .cpt-change { font-size: 10px; margin-top: 2px; }
+  .crypto-price-tile .cpt-change.up { color: #22C55E; }
+  .crypto-price-tile .cpt-change.down { color: #E85D04; }
 </style>
 </head>
 <body>
@@ -1034,7 +1040,6 @@
   <button class="tab-btn active" id="tabBalances" style="color:#A78BFA;">Balances</button>
   <button class="tab-btn" id="tabPSP" style="color:#F5F5F5;">PSP Tracking</button>
   <button class="tab-btn" id="tabCrypto" style="color:#3B82F6;">Crypto Balances</button>
-  <button class="tab-btn" id="tabCryptoSnap" style="color:#0ABAB5;">Crypto Tracking</button>
   <button class="tab-btn" id="tabInvoiceList" style="color:#FF8C00;">Invoice List</button>
   <button class="tab-btn" id="tabForecast" style="color:#22C55E;">Forecast by Day</button>
   <button class="tab-btn" id="tabContractors" style="color:#06B6D4;">Contractor Terms</button>
@@ -1116,49 +1121,6 @@
       <span class="day-modal-close" id="contractorEditModalClose">&times;</span>
     </div>
     <div id="contractorEditModalBody"></div>
-  </div>
-</div>
-
-<div id="viewCryptoSnap" style="display:none;">
-  <div style="color:#0ABAB5; font-size:11px; font-weight:bold; margin-bottom:10px;">MetaWin crypto balances — scraped from stats.metawin.com every 6 hours via a separate Claude artifact. History from Aug 2026 onward; run the source artifact periodically and re-paste updated history here to refresh.</div>
-  <p class="cryptosnap-ts" id="cryptosnapLastUpdated" style="margin-bottom:16px;">Loading...</p>
-  <div class="cryptosnap-kpi-grid">
-    <div class="cryptosnap-kpi"><div class="cryptosnap-kpi-label">Total Balance</div><div class="cryptosnap-kpi-value" id="cryptosnapKpiTotal">—</div><div class="cryptosnap-kpi-change" id="cryptosnapKpiChange">—</div></div>
-    <div class="cryptosnap-kpi"><div class="cryptosnap-kpi-label">Liabilities</div><div class="cryptosnap-kpi-value" id="cryptosnapKpiLiab">—</div></div>
-    <div class="cryptosnap-kpi"><div class="cryptosnap-kpi-label">Unswept</div><div class="cryptosnap-kpi-value" id="cryptosnapKpiUnswept">—</div></div>
-    <div class="cryptosnap-kpi"><div class="cryptosnap-kpi-label">Multiplier</div><div class="cryptosnap-kpi-value" id="cryptosnapKpiMult">—</div></div>
-    <div class="cryptosnap-kpi"><div class="cryptosnap-kpi-label">Snapshots</div><div class="cryptosnap-kpi-value" id="cryptosnapKpiSnaps">—</div><div class="cryptosnap-kpi-change cryptosnap-ts" id="cryptosnapKpiFirst">—</div></div>
-  </div>
-  <div class="cryptosnap-charts-row">
-    <div class="cryptosnap-card"><h2>Total Balance Over Time <span class="cryptosnap-history-count" id="cryptosnapChartLabel"></span></h2><canvas id="cryptosnapTotalChart"></canvas><div class="cryptosnap-no-data" id="cryptosnapNoDataMsg" style="display:none">Not enough data yet — check back after more snapshots are collected.</div></div>
-    <div class="cryptosnap-card"><h2>Web3 vs Fireblocks</h2><div style="max-width:220px;height:220px;margin:0 auto"><canvas id="cryptosnapSplitChart"></canvas></div></div>
-  </div>
-  <div class="cryptosnap-card" id="cryptosnapMoversCard" style="margin-bottom:20px;display:none">
-    <h2>24h Movers <span class="cryptosnap-history-count" id="cryptosnapMoversLabel"></span></h2>
-    <div id="cryptosnapMoversSummary" style="font-size:13px;color:#ccc;margin-bottom:14px;display:none"></div>
-    <div class="cryptosnap-section-grid" style="margin-bottom:0">
-      <div>
-        <div class="cryptosnap-kpi-label" style="margin-bottom:4px">Web3</div>
-        <div id="cryptosnapMoverWeb3Line"></div>
-      </div>
-      <div>
-        <div class="cryptosnap-kpi-label" style="margin-bottom:4px">Fireblocks</div>
-        <div id="cryptosnapMoverFbLine"></div>
-      </div>
-    </div>
-  </div>
-  <div class="cryptosnap-section-grid">
-    <div class="cryptosnap-card"><h2>Web3 Balances</h2><table id="cryptosnapWeb3Table"><thead><tr><th>Chain</th><th>Total</th><th>Liabilities</th></tr></thead><tbody></tbody></table></div>
-    <div class="cryptosnap-card"><h2>Fireblocks Balances</h2><table id="cryptosnapFbTable"><thead><tr><th>Wallet</th><th>Total</th><th>Liabilities</th></tr></thead><tbody></tbody></table></div>
-  </div>
-  <div class="cryptosnap-card" id="cryptosnapCurrencyCard" style="margin-bottom:20px;display:none">
-    <h2>Holdings by Currency</h2>
-    <div class="cryptosnap-currency-bar-wrap" id="cryptosnapCurrencyBar"></div>
-    <table><thead><tr><th>Currency</th><th>Value (USD)</th><th>Share</th><th>24h &Delta;</th></tr></thead><tbody id="cryptosnapCurrencyBody"></tbody></table>
-  </div>
-  <div class="cryptosnap-card">
-    <h2 id="cryptosnapHistHeader" class="cryptosnap-parent-row" style="cursor:pointer;user-select:none"><span class="cryptosnap-toggle" id="cryptosnapHistToggle">&#9654;</span> Snapshot History <span class="cryptosnap-history-count" id="cryptosnapHistLabel"></span></h2>
-    <div id="cryptosnapHistoryTableWrap" class="cryptosnap-hidden"><table><thead><tr><th>Time</th><th>Total</th><th>&Delta; Total</th><th>Liabilities</th><th>Unswept</th><th>Mult</th><th>Web3</th><th>Fireblocks</th></tr></thead><tbody id="cryptosnapHistoryBody"></tbody></table></div>
   </div>
 </div>
 
@@ -1319,6 +1281,17 @@
 
 <div id="viewCrypto" style="display:none;">
   <div style="color:#3B82F6; font-size:11px; font-weight:bold; margin-bottom:10px;">Crypto wallet balances &mdash; all figures in USD</div>
+
+  <div class="crypto-price-carousel-wrap" style="margin-bottom:20px;">
+    <div class="crypto-price-carousel-header">
+      <span>Live Market Prices</span>
+      <span id="cryptoPriceUpdatedAt" style="font-size:10px; color:#666; font-weight:normal;"></span>
+    </div>
+    <div class="crypto-price-carousel" id="cryptoPriceCarousel">
+      <div style="color:#666; font-size:12px; padding:10px;">Loading prices...</div>
+    </div>
+  </div>
+
   <div class="cards" id="cryptoCards"></div>
 
   <div class="cryptosnap-card" style="margin-bottom:20px;">
@@ -1637,400 +1610,6 @@ document.getElementById('contractorCurrencyFilter').addEventListener('change', r
 document.getElementById('contractorSearch').addEventListener('input', renderContractorsTable);
 
 // ============ CRYPTO SNAPSHOT TAB (ported from standalone MetaWin Balances artifact) ============
-let CRYPTOSNAP_HISTORY_DATA = [{"ts": "2026-08-01T03:07:03Z", "total": 7961415.5, "change": -74671.8, "changePct": -0.99, "liabilities": 1278647.74, "unswept": 506565.42, "multiplier": 5.83, "web3Total": 3057040.84, "web3Liab": 615616.45, "fbTotal": 4397809.24, "fbLiab": 663031.29, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-01T07:06:54Z", "total": 8041512.38, "change": 174854.94, "changePct": 2.32, "liabilities": 1277836.55, "unswept": 336202.78, "multiplier": 6.03, "web3Total": 3112044.89, "web3Liab": 614439.81, "fbTotal": 4593264.71, "fbLiab": 663396.74, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-01T11:07:00Z", "total": 8137934.44, "change": 205837.58, "changePct": 2.74, "liabilities": 1273580.64, "unswept": 412201.88, "multiplier": 6.07, "web3Total": 3129945.8, "web3Liab": 621852.07, "fbTotal": 4595786.76, "fbLiab": 651728.57, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-01T15:06:58Z", "total": 8141963.8, "change": 186368.72, "changePct": 2.48, "liabilities": 1266879.56, "unswept": 429470.96, "multiplier": 6.09, "web3Total": 3130233.86, "web3Liab": 617593.22, "fbTotal": 4582258.98, "fbLiab": 649286.34, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-01T19:07:14Z", "total": 8123864.75, "change": 269550.26, "changePct": 3.61, "liabilities": 1275014.86, "unswept": 381790.95, "multiplier": 6.07, "web3Total": 3130983.99, "web3Liab": 605326.13, "fbTotal": 4611089.81, "fbLiab": 669688.73, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-01T23:07:00Z", "total": 8196470.94, "change": 303221.13, "changePct": 4.05, "liabilities": 1277401.24, "unswept": 399568.84, "multiplier": 6.1, "web3Total": 3156281.75, "web3Liab": 621316.22, "fbTotal": 4640620.35, "fbLiab": 656085.02, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-02T03:07:08Z", "total": 8272733.96, "change": -8577.61, "changePct": -0.11, "liabilities": 1262141.18, "unswept": 428678.09, "multiplier": 6.21, "web3Total": 3175121.73, "web3Liab": 598215.13, "fbTotal": 4668934.14, "fbLiab": 663926.05, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-02T07:06:57Z", "total": 8292199.95, "change": -12576.82, "changePct": -0.16, "liabilities": 1278159.88, "unswept": 442324.05, "multiplier": 6.14, "web3Total": 3185934.8, "web3Liab": 600724.43, "fbTotal": 4663941.1, "fbLiab": 677435.45, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-02T11:06:52Z", "total": 8307227.09, "change": 87504.49, "changePct": 1.11, "liabilities": 1262851.67, "unswept": 369895.03, "multiplier": 6.29, "web3Total": 3198480.94, "web3Liab": 599495.99, "fbTotal": 4738851.12, "fbLiab": 663355.68, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-02T15:06:57Z", "total": 8278589.29, "change": 53350.56, "changePct": 0.68, "liabilities": 1274090.16, "unswept": 386183.08, "multiplier": 6.19, "web3Total": 3181391.52, "web3Liab": 593148.24, "fbTotal": 4711014.69, "fbLiab": 680941.92, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-02T19:07:13Z", "total": 8401676.44, "change": 89879.06, "changePct": 1.14, "liabilities": 1271479.41, "unswept": 447659.81, "multiplier": 6.26, "web3Total": 3214741.75, "web3Liab": 597991.6, "fbTotal": 4739274.88, "fbLiab": 673487.81, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-02T23:06:56Z", "total": 8423216.33, "change": -7274.04, "changePct": -0.09, "liabilities": 1381464.91, "unswept": 560810.61, "multiplier": 5.69, "web3Total": 3224683.92, "web3Liab": 605776.19, "fbTotal": 4637721.8, "fbLiab": 775688.72, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-03T03:07:07Z", "total": 8390280.63, "change": 8873.06, "changePct": 0.11, "liabilities": 1427044.29, "unswept": 570533.05, "multiplier": 5.48, "web3Total": 3207754.18, "web3Liab": 589471.99, "fbTotal": 4611993.4, "fbLiab": 837572.3, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-03T07:07:19Z", "total": 8261659.34, "change": 93731.55, "changePct": 1.2, "liabilities": 1436752.12, "unswept": 381818.33, "multiplier": 5.48, "web3Total": 3186463.52, "web3Liab": 644907.58, "fbTotal": 4693377.49, "fbLiab": 791844.54, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-03T11:14:00Z", "total": 8262341.67, "change": 63361.72, "changePct": 0.81, "liabilities": 1414548.54, "unswept": 418593.43, "multiplier": 5.55, "web3Total": 3186665.22, "web3Liab": 649632.66, "fbTotal": 4657083.02, "fbLiab": 764915.88, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-04T15:07:55Z", "total": 8246720.3, "change": -42923.11, "changePct": -0.54, "liabilities": 1439005.98, "unswept": 350333.7, "multiplier": 5.49, "web3Total": 3140367.63, "web3Liab": 787438.06, "fbTotal": 4756018.97, "fbLiab": 651567.92, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-05T10:07:15Z", "total": 8295375.86, "change": 21409.16, "changePct": 0.27, "liabilities": 1395911.75, "unswept": 409609.08, "multiplier": 5.65, "web3Total": 3042781.19, "web3Liab": 616096.25, "fbTotal": 4842985.59, "fbLiab": 779815.5, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-05T11:08:02Z", "total": 8317243.93, "change": 35124.53, "changePct": 0.45, "liabilities": 1266917.87, "unswept": 422555.84, "multiplier": 6.23, "web3Total": 3047741.35, "web3Liab": 619353.34, "fbTotal": 4846946.74, "fbLiab": 647564.53, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-05T15:07:29Z", "total": 8343841.11, "change": 83017.43, "changePct": 1.05, "liabilities": 1296933.6, "unswept": 383658.01, "multiplier": 6.14, "web3Total": 3042369.27, "web3Liab": 628189.31, "fbTotal": 4917813.83, "fbLiab": 668744.29, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-06T11:08:12Z", "total": 8126489.2, "change": 108061.0, "changePct": 1.41, "liabilities": 1883512.65, "unswept": 358691.65, "multiplier": 4.12, "web3Total": 2824383.5, "web3Liab": 569846.12, "fbTotal": 4943414.05, "fbLiab": 1313666.53, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-06T15:07:58Z", "total": 8264648.67, "change": 204831.92, "changePct": 2.67, "liabilities": 1885335.37, "unswept": 378524.5, "multiplier": 4.18, "web3Total": 2882808.54, "web3Liab": 578943.03, "fbTotal": 5003315.63, "fbLiab": 1306392.34, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-07T11:08:28Z", "total": 8560953.52, "change": 109979.96, "changePct": 1.36, "liabilities": 1799493.97, "unswept": 371170.88, "multiplier": 4.55, "web3Total": 2872067.97, "web3Liab": 567244.98, "fbTotal": 5317714.67, "fbLiab": 1232248.99, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-11T11:07:33Z", "total": 8974981.58, "change": -114571.04, "changePct": -1.32, "liabilities": 1847925.96, "unswept": 385688.53, "multiplier": 4.65, "web3Total": 2958770.3, "web3Liab": 616431.96, "fbTotal": 5630522.75, "fbLiab": 1231494.0, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-11T15:07:22Z", "total": 9009273.59, "change": -22277.44, "changePct": -0.26, "liabilities": 1829062.24, "unswept": 373573.54, "multiplier": 4.72, "web3Total": 3014152.47, "web3Liab": 572838.53, "fbTotal": 5621547.58, "fbLiab": 1256223.71, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-12T07:45:59Z", "total": 8999730.9, "change": -26168.77, "changePct": -0.31, "liabilities": 1898684.72, "unswept": 453873.78, "multiplier": 4.5, "web3Total": 3090934.27, "web3Liab": 665806.4, "fbTotal": 5454922.85, "fbLiab": 1232878.32, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-12T11:07:22Z", "total": 9131596.75, "change": 123558.23, "changePct": 1.44, "liabilities": 1891276.21, "unswept": 399041.88, "multiplier": 4.62, "web3Total": 3112075.02, "web3Liab": 669077.31, "fbTotal": 5620479.85, "fbLiab": 1222198.9, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-12T15:07:44Z", "total": 9136396.93, "change": 184281.05, "changePct": 2.15, "liabilities": 1907121.56, "unswept": 395054.83, "multiplier": 4.58, "web3Total": 3099298.03, "web3Liab": 682308.13, "fbTotal": 5642044.07, "fbLiab": 1224813.43, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-13T11:07:56Z", "total": 9552512.85, "change": 40573.95, "changePct": 0.45, "liabilities": 1416147.6, "unswept": 396708.13, "multiplier": 6.47, "web3Total": 3044075.99, "web3Liab": 725915.04, "fbTotal": 6111728.73, "fbLiab": 690232.56, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-14T08:10:50Z", "total": 9518905.24, "change": -139394.37, "changePct": -1.51, "liabilities": 1220068.88, "unswept": 442879.06, "multiplier": 7.44, "web3Total": 2870124.06, "web3Liab": 574323.87, "fbTotal": 6205902.12, "fbLiab": 645745.01, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-14T11:07:13Z", "total": 9551894.44, "change": -39875.41, "changePct": -0.43, "liabilities": 1225532.88, "unswept": 383046.69, "multiplier": 7.48, "web3Total": 2875308.03, "web3Liab": 569878.7, "fbTotal": 6293539.72, "fbLiab": 655654.18, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-14T15:06:42Z", "total": 9545133.49, "change": -40290.77, "changePct": -0.44, "liabilities": 1242538.67, "unswept": 397448.41, "multiplier": 7.36, "web3Total": 2870375.38, "web3Liab": 568531.45, "fbTotal": 6277309.7, "fbLiab": 674007.22, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-14T23:06:43Z", "total": 9659327.91, "change": 47505.71, "changePct": 0.52, "liabilities": 1218734.06, "unswept": 415420.06, "multiplier": 7.58, "web3Total": 2862685.62, "web3Liab": 558758.22, "fbTotal": 6381222.23, "fbLiab": 659975.84, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-15T03:07:19Z", "total": 9750880.1, "change": 13980.28, "changePct": 0.15, "liabilities": 1221660.65, "unswept": 452256.71, "multiplier": 7.61, "web3Total": 2883878.67, "web3Liab": 553093.07, "fbTotal": 6414744.72, "fbLiab": 668567.58, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-15T11:07:35Z", "total": 9594051.27, "change": -105976.3, "changePct": -1.14, "liabilities": 1207300.06, "unswept": 429452.15, "multiplier": 7.59, "web3Total": 2900290.16, "web3Liab": 544349.31, "fbTotal": 6264308.96, "fbLiab": 662950.75, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-15T19:07:23Z", "total": 9603645.03, "change": -103082.24, "changePct": -1.11, "liabilities": 1251439.99, "unswept": 427703.59, "multiplier": 7.33, "web3Total": 2941812.84, "web3Liab": 557262.96, "fbTotal": 6234128.6, "fbLiab": 694177.03, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-16T15:06:34Z", "total": 9751688.2, "change": 57861.94, "changePct": 0.63, "liabilities": 1220250.55, "unswept": 456925.04, "multiplier": 7.62, "web3Total": 2984792.71, "web3Liab": 554568.35, "fbTotal": 6309970.45, "fbLiab": 665682.2, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-16T19:07:19Z", "total": 9798750.53, "change": 75106.86, "changePct": 0.81, "liabilities": 1252424.16, "unswept": 490551.86, "multiplier": 7.43, "web3Total": 2993123.46, "web3Liab": 570585.41, "fbTotal": 6315075.21, "fbLiab": 681838.75, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-16T23:07:05Z", "total": 9754684.52, "change": 112560.52, "changePct": 1.22, "liabilities": 1220167.98, "unswept": 437730.05, "multiplier": 7.64, "web3Total": 2985285.18, "web3Liab": 544491.5, "fbTotal": 6331669.29, "fbLiab": 675676.48, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-17T03:07:30Z", "total": 9875407.46, "change": 40895.02, "changePct": 0.44, "liabilities": 1222329.49, "unswept": 471025.26, "multiplier": 7.69, "web3Total": 3021378.95, "web3Liab": 540812.7, "fbTotal": 6383003.25, "fbLiab": 681516.79, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-17T07:06:44Z", "total": 9917344.1, "change": 36570.03, "changePct": 0.39, "liabilities": 1204234.19, "unswept": 504330.03, "multiplier": 7.82, "web3Total": 3032268.05, "web3Liab": 540966.67, "fbTotal": 6380746.02, "fbLiab": 663267.52, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-17T11:07:00Z", "total": 9740339.47, "change": -28546.77, "changePct": -0.3, "liabilities": 1328179.51, "unswept": 394388.36, "multiplier": 7.04, "web3Total": 3040716.29, "web3Liab": 539081.35, "fbTotal": 6305234.82, "fbLiab": 789098.16, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-17T16:07:00Z", "total": 9791538.95, "change": -15093.14, "changePct": -0.16, "liabilities": 1365199.25, "unswept": 424048.77, "multiplier": 6.86, "web3Total": 3066072.34, "web3Liab": 550053.52, "fbTotal": 6301417.84, "fbLiab": 815145.73, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-17T19:07:16Z", "total": 9838573.74, "change": 17015.25, "changePct": 0.18, "liabilities": 1250372.11, "unswept": 436091.04, "multiplier": 7.52, "web3Total": 3069222.9, "web3Liab": 535770.46, "fbTotal": 6333259.8, "fbLiab": 714601.65, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-17T23:08:19Z", "total": 9694522.15, "change": -129332.88, "changePct": -1.38, "liabilities": 1335299.76, "unswept": 445510.39, "multiplier": 6.93, "web3Total": 2866710.75, "web3Liab": 579836.67, "fbTotal": 6382301.01, "fbLiab": 755463.09, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-18T03:07:09Z", "total": 9688390.98, "change": -45464.72, "changePct": -0.49, "liabilities": 1257845.21, "unswept": 520952.27, "multiplier": 7.29, "web3Total": 2870533.22, "web3Liab": 549786.89, "fbTotal": 6296905.49, "fbLiab": 708058.32, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-18T07:08:15Z", "total": 9688876.83, "change": 61665.48, "changePct": 0.67, "liabilities": 1261579.29, "unswept": 389612.95, "multiplier": 7.37, "web3Total": 2863547.45, "web3Liab": 555250.83, "fbTotal": 6435716.43, "fbLiab": 706328.46, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-18T11:08:23Z", "total": 9688476.87, "change": -24610.48, "changePct": -0.27, "liabilities": 1220117.83, "unswept": 479899.12, "multiplier": 7.55, "web3Total": 2801351.78, "web3Liab": 558514.94, "fbTotal": 6407225.97, "fbLiab": 661602.89, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-18T15:07:13Z", "total": 9786154.53, "change": 72823.45, "changePct": 0.79, "liabilities": 1239134.43, "unswept": 446191.64, "multiplier": 7.54, "web3Total": 2795837.25, "web3Liab": 550424.83, "fbTotal": 6544125.64, "fbLiab": 688709.6, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-18T19:09:17Z", "total": 9890758.57, "change": 169370.03, "changePct": 1.83, "liabilities": 1258398.85, "unswept": 445859.99, "multiplier": 7.51, "web3Total": 2819389.98, "web3Liab": 571296.14, "fbTotal": 6625508.6, "fbLiab": 687102.71, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-18T23:11:48Z", "total": 9917924.52, "change": 249814.52, "changePct": 2.69, "liabilities": 1242698.18, "unswept": 396413.68, "multiplier": 7.66, "web3Total": 2824922.95, "web3Liab": 553004.26, "fbTotal": 6696587.89, "fbLiab": 689693.92, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-19T03:08:07Z", "total": 9930232.29, "change": -5646.6, "changePct": -0.06, "liabilities": 1261430.85, "unswept": 435194.04, "multiplier": 7.53, "web3Total": 2811616.63, "web3Liab": 536351.01, "fbTotal": 6683421.62, "fbLiab": 725079.84, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-19T07:07:58Z", "total": 9894085.84, "change": -113228.39, "changePct": -1.19, "liabilities": 1217496.1, "unswept": 495273.77, "multiplier": 7.72, "web3Total": 2835678.86, "web3Liab": 537746.84, "fbTotal": 6563133.21, "fbLiab": 679749.26, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-19T11:08:16Z", "total": 10033279.68, "change": 25219.5, "changePct": 0.26, "liabilities": 1342015.4, "unswept": 479256.69, "multiplier": 7.12, "web3Total": 2868234.29, "web3Liab": 541286.29, "fbTotal": 6685788.7, "fbLiab": 800729.11, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-19T15:07:50Z", "total": 10066929.16, "change": -77938.66, "changePct": -0.81, "liabilities": 1302224.61, "unswept": 479343.67, "multiplier": 7.36, "web3Total": 2905006.14, "web3Liab": 559713.03, "fbTotal": 6682579.35, "fbLiab": 742511.58, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-19T19:07:37Z", "total": 8585602.44, "change": -1694225.49, "changePct": -17.27, "liabilities": 1350958.92, "unswept": 470573.55, "multiplier": 6.01, "web3Total": 2991703.17, "web3Liab": 582734.8, "fbTotal": 5123325.72, "fbLiab": 768224.12, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-19T23:08:48Z", "total": 8845818.94, "change": -1692601.99, "changePct": -16.93, "liabilities": 1429632.74, "unswept": 538012.26, "multiplier": 5.81, "web3Total": 3030300.71, "web3Liab": 631400.09, "fbTotal": 5277505.97, "fbLiab": 798232.65, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-20T03:07:34Z", "total": 8710134.66, "change": -119524.93, "changePct": -1.45, "liabilities": 1357726.45, "unswept": 573507.23, "multiplier": 5.99, "web3Total": 3019383.24, "web3Liab": 591344.18, "fbTotal": 5117244.19, "fbLiab": 766382.27, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-20T07:08:00Z", "total": 8757572.58, "change": -121537.43, "changePct": -1.47, "liabilities": 1357043.64, "unswept": 586516.99, "multiplier": 6.02, "web3Total": 3013070.11, "web3Liab": 590405.98, "fbTotal": 5157985.48, "fbLiab": 766637.66, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-20T11:08:08Z", "total": 8922014.19, "change": 124689.16, "changePct": 1.49, "liabilities": 1346391.86, "unswept": 426149.49, "multiplier": 6.31, "web3Total": 3077492.53, "web3Liab": 620299.0, "fbTotal": 5418372.17, "fbLiab": 726092.86, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-20T15:07:44Z", "total": 9012908.6, "change": 188566.63, "changePct": 2.25, "liabilities": 1326157.56, "unswept": 430924.78, "multiplier": 6.47, "web3Total": 3101864.46, "web3Liab": 622189.34, "fbTotal": 5480119.36, "fbLiab": 703968.22, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-21T11:08:24Z", "total": 9471433.37, "change": 210951.32, "changePct": 2.38, "liabilities": 1377387.61, "unswept": 398369.78, "multiplier": 6.59, "web3Total": 3179074.27, "web3Liab": 627887.96, "fbTotal": 5893989.32, "fbLiab": 749499.65, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-21T15:10:11Z", "total": 9530651.51, "change": 228174.75, "changePct": 2.57, "liabilities": 1386051.42, "unswept": 426486.31, "multiplier": 6.57, "web3Total": 3171939.53, "web3Liab": 671472.34, "fbTotal": 5932225.67, "fbLiab": 714579.08, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-22T07:07:21Z", "total": 9671515.6, "change": 34590.07, "changePct": 0.38, "liabilities": 1392368.99, "unswept": 441815.59, "multiplier": 6.63, "web3Total": 3138648.92, "web3Liab": 655815.48, "fbTotal": 6091051.09, "fbLiab": 736553.51, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-23T07:07:00Z", "total": 9584108.28, "change": -55754.82, "changePct": -0.61, "liabilities": 1372313.76, "unswept": 493343.52, "multiplier": 6.62, "web3Total": 3192944.27, "web3Liab": 634321.93, "fbTotal": 5897820.49, "fbLiab": 737991.83, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-23T19:06:39Z", "total": 9894204.5, "change": 200717.64, "changePct": 2.16, "liabilities": 1433945.35, "unswept": 422235.81, "multiplier": 6.61, "web3Total": 3303954.34, "web3Liab": 634878.04, "fbTotal": 6168014.35, "fbLiab": 799067.31, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-24T11:08:09Z", "total": 9945332.02, "change": 115779.2, "changePct": 1.23, "liabilities": 1392888.99, "unswept": 423074.93, "multiplier": 6.84, "web3Total": 3356086.82, "web3Liab": 633581.87, "fbTotal": 6166170.27, "fbLiab": 759307.12, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-24T15:16:17Z", "total": 10165254.79, "change": 233850.54, "changePct": 2.46, "liabilities": 1393676.17, "unswept": 426099.14, "multiplier": 6.99, "web3Total": 3405723.74, "web3Liab": 642061.91, "fbTotal": 6333431.91, "fbLiab": 751614.26, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-24T19:10:43Z", "total": 10050531.39, "change": 123367.93, "changePct": 1.31, "liabilities": 1381518.39, "unswept": 488644.27, "multiplier": 6.92, "web3Total": 3380669.17, "web3Liab": 622775.73, "fbTotal": 6181217.95, "fbLiab": 758742.66, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-24T23:07:54Z", "total": 10171217.65, "change": 203547.98, "changePct": 2.15, "liabilities": 1404836.49, "unswept": 513707.24, "multiplier": 6.87, "web3Total": 3365417.67, "web3Liab": 637580.6, "fbTotal": 6292092.74, "fbLiab": 767255.89, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-25T03:07:39Z", "total": 10218006.47, "change": -143557.14, "changePct": -1.47, "liabilities": 1422559.1, "unswept": 584667.59, "multiplier": 6.77, "web3Total": 3402861.19, "web3Liab": 650776.0, "fbTotal": 6230477.69, "fbLiab": 771783.1, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-25T07:07:34Z", "total": 10206622.53, "change": -151004.0, "changePct": -1.55, "liabilities": 1398812.05, "unswept": 591649.55, "multiplier": 6.87, "web3Total": 3418631.37, "web3Liab": 632689.59, "fbTotal": 6196341.61, "fbLiab": 766122.46, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-25T11:08:08Z", "total": 10242354.41, "change": 82705.49, "changePct": 0.85, "liabilities": 1453809.18, "unswept": 456392.35, "multiplier": 6.73, "web3Total": 3449952.66, "web3Liab": 637641.32, "fbTotal": 6336009.4, "fbLiab": 816167.86, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-25T15:07:46Z", "total": 10160852.64, "change": 64135.54, "changePct": 0.66, "liabilities": 1449641.43, "unswept": 429759.18, "multiplier": 6.71, "web3Total": 3333119.4, "web3Liab": 634714.05, "fbTotal": 6397974.06, "fbLiab": 814927.38, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-25T19:07:00Z", "total": 10175552.36, "change": 52525.17, "changePct": 0.54, "liabilities": 1382958.25, "unswept": 452423.27, "multiplier": 7.03, "web3Total": 3300491.51, "web3Liab": 648452.31, "fbTotal": 6422637.58, "fbLiab": 734505.94, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-25T23:07:05Z", "total": 10152709.32, "change": 81939.89, "changePct": 0.85, "liabilities": 1403006.58, "unswept": 445704.74, "multiplier": 6.92, "web3Total": 3270652.87, "web3Liab": 637552.32, "fbTotal": 6436351.71, "fbLiab": 765454.26, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-26T03:08:07Z", "total": 10170850.88, "change": -28207.64, "changePct": -0.29, "liabilities": 1398388.6, "unswept": 475157.94, "multiplier": 6.93, "web3Total": 3259627.68, "web3Liab": 634465.76, "fbTotal": 6436065.26, "fbLiab": 763922.84, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-26T11:08:28Z", "total": 10166262.1, "change": -21506.29, "changePct": -0.22, "liabilities": 1394392.48, "unswept": 455139.65, "multiplier": 6.96, "web3Total": 3210788.65, "web3Liab": 639651.74, "fbTotal": 6500333.8, "fbLiab": 754740.74, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-26T15:08:25Z", "total": 10132370.31, "change": 74025.13, "changePct": 0.77, "liabilities": 1403204.73, "unswept": 431195.63, "multiplier": 6.91, "web3Total": 3162425.83, "web3Liab": 637059.67, "fbTotal": 6538748.85, "fbLiab": 766145.06, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-27T08:11:07Z", "total": 10342500.98, "change": -209357.93, "changePct": -2.11, "liabilities": 1408018.45, "unswept": 648997.36, "multiplier": 6.88, "web3Total": 3241074.12, "web3Liab": 639512.25, "fbTotal": 6452429.5, "fbLiab": 768506.2, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-27T11:07:36Z", "total": 10395722.38, "change": 29242.65, "changePct": 0.29, "liabilities": 1373124.07, "unswept": 444620.95, "multiplier": 7.25, "web3Total": 3254974.1, "web3Liab": 639445.92, "fbTotal": 6696127.33, "fbLiab": 733678.15, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-27T15:09:00Z", "total": 10495501.04, "change": 63177.68, "changePct": 0.63, "liabilities": 1388623.54, "unswept": 458891.44, "multiplier": 7.23, "web3Total": 3272718.8, "web3Liab": 665985.86, "fbTotal": 6763890.8, "fbLiab": 722637.68, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-27T19:08:34Z", "total": 10657753.98, "change": 129948.66, "changePct": 1.3, "liabilities": 1399596.27, "unswept": 544349.76, "multiplier": 7.23, "web3Total": 3329407.45, "web3Liab": 660227.99, "fbTotal": 6783996.77, "fbLiab": 739368.28, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-28T07:37:48Z", "total": 10603357.94, "change": -121212.4, "changePct": -1.19, "liabilities": 1369961.34, "unswept": 560527.94, "multiplier": 7.33, "web3Total": 3402297.34, "web3Liab": 651178.58, "fbTotal": 6640532.66, "fbLiab": 718782.76, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-28T07:43:46Z", "total": 10603659.0, "change": -118095.86, "changePct": -1.16, "liabilities": 1369961.34, "unswept": 561273.37, "multiplier": 7.33, "web3Total": 3404607.01, "web3Liab": 651178.58, "fbTotal": 6637778.62, "fbLiab": 718782.76, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-28T11:03:24Z", "total": 10618226.08, "change": -38639.67, "changePct": -0.38, "liabilities": 1395415.07, "unswept": 497092.74, "multiplier": 7.25, "web3Total": 3388319.34, "web3Liab": 649032.9, "fbTotal": 6732814.0, "fbLiab": 746382.17, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-28T15:08:02Z", "total": 10777650.81, "change": 88270.44, "changePct": 0.87, "liabilities": 1406037.29, "unswept": 529199.97, "multiplier": 7.29, "web3Total": 3425274.37, "web3Liab": 667279.31, "fbTotal": 6823176.47, "fbLiab": 738757.98, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-31T15:07:53Z", "total": 11044377.3, "change": 205103.66, "changePct": 1.99, "liabilities": 1349612.17, "unswept": 510323.33, "multiplier": 7.81, "web3Total": 3513624.73, "web3Liab": 617271.12, "fbTotal": 7020429.24, "fbLiab": 732341.05, "web3Chains": [], "fbWallets": []}, {"ts": "2026-08-31T19:08:35Z", "total": 11307393.54, "change": 428793.65, "changePct": 4.14, "liabilities": 1466371.06, "unswept": 509991.33, "multiplier": 7.36, "web3Total": 3504797.04, "web3Liab": 674614.42, "fbTotal": 7292605.17, "fbLiab": 791756.64, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-02T04:14:41Z", "total": 11378412.55, "change": 16097.29, "changePct": 0.15, "liabilities": 1266040.98, "unswept": 516368.17, "multiplier": 8.58, "web3Total": 3486280.51, "web3Liab": 598051.35, "fbTotal": 7375763.87, "fbLiab": 667989.63, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-02T08:16:40Z", "total": 11354248.69, "change": -27413.65, "changePct": -0.25, "liabilities": 1261351.48, "unswept": 541052.42, "multiplier": 8.57, "web3Total": 3449947.47, "web3Liab": 601875.04, "fbTotal": 7363248.8, "fbLiab": 659476.44, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-02T11:08:20Z", "total": 11302174.05, "change": 47238.03, "changePct": 0.44, "liabilities": 1237652.92, "unswept": 503111.09, "multiplier": 8.73, "web3Total": 3432196.19, "web3Liab": 589470.81, "fbTotal": 7366866.77, "fbLiab": 648182.11, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-02T15:09:06Z", "total": 11404881.63, "change": 117018.07, "changePct": 1.08, "liabilities": 1263202.23, "unswept": 481335.33, "multiplier": 8.65, "web3Total": 3470563.25, "web3Liab": 601241.57, "fbTotal": 7452983.05, "fbLiab": 661960.66, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-03T08:19:27Z", "total": 11163815.12, "change": -14884.17, "changePct": -0.14, "liabilities": 1598248.35, "unswept": 542473.98, "multiplier": 6.65, "web3Total": 3514715.27, "web3Liab": 602512.63, "fbTotal": 7106625.87, "fbLiab": 995735.72, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-03T11:09:30Z", "total": 11145466.58, "change": 41597.99, "changePct": 0.39, "liabilities": 1588823.04, "unswept": 482998.36, "multiplier": 6.71, "web3Total": 3514368.52, "web3Liab": 597369.8, "fbTotal": 7148099.7, "fbLiab": 991453.24, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-03T15:08:05Z", "total": 11342467.1, "change": 4642.69, "changePct": 0.04, "liabilities": 1618240.02, "unswept": 492791.88, "multiplier": 6.7, "web3Total": 3582003.05, "web3Liab": 608577.72, "fbTotal": 7267672.17, "fbLiab": 1009662.3, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-04T08:04:31Z", "total": 10922010.56, "change": 14289.4, "changePct": 0.14, "liabilities": 1418560.58, "unswept": 545496.26, "multiplier": 7.31, "web3Total": 3549198.25, "web3Liab": 707334.1, "fbTotal": 6827316.05, "fbLiab": 711226.48, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-04T11:08:12Z", "total": 10956208.38, "change": 57502.07, "changePct": 0.55, "liabilities": 1402512.08, "unswept": 508932.64, "multiplier": 7.45, "web3Total": 3541120.21, "web3Liab": 701243.9, "fbTotal": 6906155.53, "fbLiab": 701268.18, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-04T15:07:52Z", "total": 9805130.24, "change": -946928.26, "changePct": -9.24, "liabilities": 1380983.39, "unswept": 506051.14, "multiplier": 6.73, "web3Total": 3404300.15, "web3Liab": 679923.51, "fbTotal": 5894778.95, "fbLiab": 701059.88, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-04T19:08:13Z", "total": 9978208.27, "change": -800413.52, "changePct": -7.78, "liabilities": 1621184.66, "unswept": 491701.04, "multiplier": 5.85, "web3Total": 3414636.66, "web3Liab": 659482.26, "fbTotal": 6071870.57, "fbLiab": 961702.4, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-04T23:07:00Z", "total": 9734811.36, "change": -1072561.42, "changePct": -10.43, "liabilities": 1502338.22, "unswept": 522952.11, "multiplier": 6.13, "web3Total": 3424026.15, "web3Liab": 640357.81, "fbTotal": 5787833.1, "fbLiab": 861980.41, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-05T03:09:23Z", "total": 9659026.33, "change": -108964.9, "changePct": -1.18, "liabilities": 1421338.72, "unswept": 544427.69, "multiplier": 6.41, "web3Total": 3417201.73, "web3Liab": 633525.14, "fbTotal": 5697396.91, "fbLiab": 787813.58, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-05T07:07:43Z", "total": 9726531.12, "change": -18410.09, "changePct": -0.2, "liabilities": 1797332.48, "unswept": 497870.72, "multiplier": 5.13, "web3Total": 3436540.81, "web3Liab": 629282.14, "fbTotal": 5792119.59, "fbLiab": 1168050.34, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-05T11:08:11Z", "total": 9960658.6, "change": 205710.24, "changePct": 2.22, "liabilities": 1432506.21, "unswept": 499386.91, "multiplier": 6.6, "web3Total": 3448995.21, "web3Liab": 644482.76, "fbTotal": 6012276.48, "fbLiab": 788023.45, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-05T15:07:31Z", "total": 10001409.55, "change": 198353.6, "changePct": 2.14, "liabilities": 1416571.39, "unswept": 514358.37, "multiplier": 6.7, "web3Total": 3460617.15, "web3Liab": 633610.8, "fbTotal": 6026434.03, "fbLiab": 782960.59, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-05T19:08:37Z", "total": 10106669.54, "change": 244480.72, "changePct": 2.62, "liabilities": 1496663.25, "unswept": 534029.17, "multiplier": 6.4, "web3Total": 3507851.52, "web3Liab": 650062.42, "fbTotal": 6064788.85, "fbLiab": 846600.83, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-06T07:31:29Z", "total": 10087468.8, "change": -57660.0, "changePct": -0.6, "liabilities": 1414829.44, "unswept": 538836.73, "multiplier": 6.75, "web3Total": 3485937.45, "web3Liab": 651463.98, "fbTotal": 6062694.62, "fbLiab": 763365.46, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-06T11:08:03Z", "total": 10145660.91, "change": 26648.86, "changePct": 0.28, "liabilities": 1410408.93, "unswept": 491138.11, "multiplier": 6.85, "web3Total": 3514396.6, "web3Liab": 660161.75, "fbTotal": 6140126.2, "fbLiab": 750247.18, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-06T15:10:00Z", "total": 10084064.26, "change": 2039.22, "changePct": 0.02, "liabilities": 1413612.81, "unswept": 507626.81, "multiplier": 6.77, "web3Total": 3496310.79, "web3Liab": 652872.04, "fbTotal": 6080126.66, "fbLiab": 760740.77, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-06T19:08:27Z", "total": 10155986.04, "change": 48668.52, "changePct": 0.51, "liabilities": 1400928.56, "unswept": 502354.1, "multiplier": 6.89, "web3Total": 3536524.59, "web3Liab": 656027.21, "fbTotal": 6117107.35, "fbLiab": 744901.35, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-06T23:08:46Z", "total": 10229666.61, "change": 100232.61, "changePct": 1.04, "liabilities": 1355587.14, "unswept": 499153.53, "multiplier": 7.18, "web3Total": 3560113.74, "web3Liab": 596561.0, "fbTotal": 6170399.34, "fbLiab": 759026.14, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-07T03:08:30Z", "total": 10277632.97, "change": 35048.57, "changePct": 0.36, "liabilities": 1375076.43, "unswept": 506852.16, "multiplier": 7.11, "web3Total": 3574099.64, "web3Liab": 597361.43, "fbTotal": 6196681.17, "fbLiab": 777715.0, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-07T07:10:08Z", "total": 10275113.84, "change": 46501.44, "changePct": 0.48, "liabilities": 1405022.62, "unswept": 516241.51, "multiplier": 6.95, "web3Total": 3572402.25, "web3Liab": 611320.11, "fbTotal": 6186470.08, "fbLiab": 793702.51, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-07T11:09:32Z", "total": 10222831.35, "change": 110400.76, "changePct": 1.14, "liabilities": 1392779.83, "unswept": 401866.43, "multiplier": 7.05, "web3Total": 3547641.1, "web3Liab": 623140.6, "fbTotal": 6273323.82, "fbLiab": 769639.23, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-07T15:08:06Z", "total": 10246116.66, "change": 227213.04, "changePct": 2.34, "liabilities": 1362594.51, "unswept": 310721.04, "multiplier": 7.29, "web3Total": 3545469.24, "web3Liab": 614249.55, "fbTotal": 6389926.38, "fbLiab": 748344.96, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-07T19:08:17Z", "total": 10199673.33, "change": 250913.79, "changePct": 2.59, "liabilities": 1384015.44, "unswept": 265407.18, "multiplier": 7.18, "web3Total": 3471331.91, "web3Liab": 648437.57, "fbTotal": 6462934.24, "fbLiab": 735577.87, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-08T11:08:20Z", "total": 10340345.47, "change": 133480.95, "changePct": 1.34, "liabilities": 1385576.61, "unswept": 271164.63, "multiplier": 7.27, "web3Total": 3473154.17, "web3Liab": 675488.39, "fbTotal": 6596026.67, "fbLiab": 710088.22, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-08T15:08:52Z", "total": 10341582.97, "change": 100280.79, "changePct": 1.01, "liabilities": 1414784.79, "unswept": 297341.07, "multiplier": 7.1, "web3Total": 3507161.49, "web3Liab": 643756.11, "fbTotal": 6537080.41, "fbLiab": 771028.68, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-08T19:08:47Z", "total": 10375639.89, "change": 149399.59, "changePct": 1.5, "liabilities": 1361482.76, "unswept": 285398.52, "multiplier": 7.41, "web3Total": 3523960.55, "web3Liab": 649932.36, "fbTotal": 6566280.82, "fbLiab": 711550.4, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-08T23:08:43Z", "total": 10364685.69, "change": 127601.72, "changePct": 1.28, "liabilities": 1386551.41, "unswept": 296445.13, "multiplier": 7.26, "web3Total": 3533292.4, "web3Liab": 663289.91, "fbTotal": 6534948.16, "fbLiab": 723261.5, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-09T07:29:58Z", "total": 10412676.42, "change": 32114.61, "changePct": 0.32, "liabilities": 1444893.91, "unswept": 264941.74, "multiplier": 7.02, "web3Total": 3535048.93, "web3Liab": 690577.12, "fbTotal": 6612685.75, "fbLiab": 754316.79, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-09T11:07:46Z", "total": 10328414.44, "change": -19345.97, "changePct": -0.19, "liabilities": 1600285.45, "unswept": 283525.25, "multiplier": 6.28, "web3Total": 3440230.7, "web3Liab": 604722.68, "fbTotal": 6604658.49, "fbLiab": 995562.77, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-09T15:08:36Z", "total": 10411093.69, "change": 62929.04, "changePct": 0.63, "liabilities": 1646521.72, "unswept": 283092.52, "multiplier": 6.15, "web3Total": 3495025.71, "web3Liab": 608629.59, "fbTotal": 6632975.46, "fbLiab": 1037892.13, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-10T07:54:06Z", "total": 10289758.47, "change": 77220.22, "changePct": 0.78, "liabilities": 1464133.09, "unswept": 321554.91, "multiplier": 6.81, "web3Total": 3504726.36, "web3Liab": 601724.79, "fbTotal": 6463477.2, "fbLiab": 862408.3, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-10T11:09:00Z", "total": 10231008.85, "change": 92412.86, "changePct": 0.94, "liabilities": 1656559.29, "unswept": 264860.42, "multiplier": 6.02, "web3Total": 3494756.43, "web3Liab": 599279.28, "fbTotal": 6471392.0, "fbLiab": 1057280.01, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-10T15:09:36Z", "total": 10293287.7, "change": 174353.0, "changePct": 1.77, "liabilities": 1639135.72, "unswept": 283068.16, "multiplier": 6.11, "web3Total": 3523768.7, "web3Liab": 600646.26, "fbTotal": 6486450.84, "fbLiab": 1038489.46, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-11T08:05:17Z", "total": 10129661.81, "change": -43923.19, "changePct": -0.45, "liabilities": 1619177.42, "unswept": 353556.69, "multiplier": 6.04, "web3Total": 3503791.81, "web3Liab": 599227.3, "fbTotal": 6272313.31, "fbLiab": 1019950.12, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-14T09:00:00Z", "total": 10826777.07, "change": 23003.27, "changePct": 0.22, "liabilities": 1369135.9, "unswept": 359932.45, "multiplier": 7.64, "web3Total": 3695955.14, "web3Liab": 619391.28, "fbTotal": 6770889.48, "fbLiab": 749744.62, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-14T11:11:03Z", "total": 10845689.85, "change": 105078.89, "changePct": 1.01, "liabilities": 1365935.2, "unswept": 299060.82, "multiplier": 7.72, "web3Total": 3699747.27, "web3Liab": 616672.58, "fbTotal": 6846881.76, "fbLiab": 749262.62, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-14T13:54:00Z", "total": 10899953.16, "change": 175828.49, "changePct": 1.69, "liabilities": 1358780.3, "unswept": 293160.18, "multiplier": 7.81, "web3Total": 3719774.37, "web3Liab": 617527.47, "fbTotal": 6887018.61, "fbLiab": 741252.83, "web3Chains": [], "fbWallets": []}, {"ts": "2026-09-15T15:51:00Z", "total": 10807162.08, "change": 102790.4, "changePct": 0.99, "liabilities": 1285806.94, "unswept": 315101.91, "multiplier": 8.16, "web3Total": 3730877.2, "web3Liab": 585496.35, "fbTotal": 6761182.97, "fbLiab": 700310.59, "web3Chains": [{"name": "Ethereum", "total": 1293422.0, "liab": 550452.17, "assets": [{"symbol": "ETH", "total": 768259.42, "liab": 378615.23}, {"symbol": "USDT", "total": 199109.88, "liab": 147580.7}, {"symbol": "USDC", "total": 266095.89, "liab": 20677.44}, {"symbol": "EURC", "total": 59956.81, "liab": 3578.8}]}, {"name": "Solana", "total": 1354923.72, "liab": 203090.44, "assets": [{"symbol": "SOL", "total": 570584.2, "liab": 34832.3}, {"symbol": "USDT", "total": 203655.09, "liab": 147580.7}, {"symbol": "USDC", "total": 580684.43, "liab": 20677.44}]}, {"name": "Arbitrum", "total": 378448.39, "liab": 546873.37, "assets": [{"symbol": "ETH", "total": 100631.44, "liab": 378615.23}, {"symbol": "USDT", "total": 67566.63, "liab": 147580.7}, {"symbol": "USDC", "total": 210250.32, "liab": 20677.44}]}, {"name": "Base", "total": 466193.96, "liab": 399292.67, "assets": [{"symbol": "ETH", "total": 271809.33, "liab": 378615.23}, {"symbol": "USDC", "total": 194384.63, "liab": 20677.44}]}, {"name": "Optimism", "total": 50249.26, "liab": 546873.37, "assets": [{"symbol": "ETH", "total": 30468.44, "liab": 378615.23}, {"symbol": "USDT", "total": 4322.39, "liab": 147580.7}, {"symbol": "USDC", "total": 15458.43, "liab": 20677.44}]}, {"name": "Polygon", "total": 187618.93, "liab": 168470.02, "assets": [{"symbol": "MATIC", "total": 9086.33, "liab": 211.88}, {"symbol": "USDT", "total": 5173.71, "liab": 147580.7}, {"symbol": "USDC", "total": 173358.89, "liab": 20677.44}]}, {"name": "Binance", "total": 20.94, "liab": 0, "assets": [{"symbol": "BNB", "total": 20.94, "liab": 0}]}], "fbWallets": [{"name": "Treasury", "total": 2586597.68, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 965.5, "liab": 0}, {"symbol": "BTC", "network": "Bitcoin", "total": 34730.17, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 574963.28, "liab": 0}, {"symbol": "USDT", "network": "Ethereum", "total": 248048.86, "liab": 0}, {"symbol": "USDT", "network": "Tron", "total": 450107.79, "liab": 0}, {"symbol": "USDT", "network": "Solana", "total": 232186.95, "liab": 0}, {"symbol": "USDC", "network": "Ethereum", "total": 250054.76, "liab": 0}, {"symbol": "USDC", "network": "Solana", "total": 263913.69, "liab": 0}, {"symbol": "DOGE", "network": "Dogecoin", "total": 38672.83, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 246085.89, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 126103.71, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 120764.25, "liab": 0}]}, {"name": "Deposit", "total": 19.1, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 0.07, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 17.62, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 1.4, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 0.01, "liab": 0}]}, {"name": "Withdrawal", "total": 4167121.33, "liab": 700310.59, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 366070.71, "liab": 112364.79}, {"symbol": "BTC", "network": "Bitcoin", "total": 349875.75, "liab": 87066.86}, {"symbol": "SOL", "network": "Solana", "total": 403423.68, "liab": 45806.44}, {"symbol": "USDT", "network": "Ethereum", "total": 291722.57, "liab": 92696.59}, {"symbol": "USDT", "network": "Tron", "total": 411159.01, "liab": 92696.59}, {"symbol": "USDT", "network": "Solana", "total": 431726.13, "liab": 92696.59}, {"symbol": "USDC", "network": "Ethereum", "total": 288754.73, "liab": 16092.43}, {"symbol": "USDC", "network": "Solana", "total": 294028.98, "liab": 16092.43}, {"symbol": "LTC", "network": "Litecoin", "total": 394904.85, "liab": 330566.28}, {"symbol": "DOGE", "network": "Dogecoin", "total": 158971.08, "liab": 253.58}, {"symbol": "XRP", "network": "Ripple", "total": 300570.78, "liab": 6015.62}, {"symbol": "TRX", "network": "Tron", "total": 159691.38, "liab": 5442.51}, {"symbol": "BNB", "network": "Binance", "total": 293837.16, "liab": 3404.05}, {"symbol": "MATIC", "network": "Polygon", "total": 10189.8, "liab": 590.4}, {"symbol": "EURC", "network": "Ethereum", "total": 12194.72, "liab": 11.04}]}, {"name": "Gas", "total": 7444.86, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 4724.8, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 258.6, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 2342.31, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 65.53, "liab": 0}, {"symbol": "MATIC", "network": "Polygon", "total": 53.62, "liab": 0}]}]}, {"ts": "2026-09-15T17:58:00Z", "total": 10865663.85, "change": 149397.82, "changePct": 1.43, "liabilities": 1290409.34, "unswept": 302664.32, "multiplier": 8.19, "web3Total": 3761678.59, "web3Liab": 589064.76, "fbTotal": 6801320.94, "fbLiab": 701344.58, "web3Chains": [{"name": "Ethereum", "total": 1311524.67, "liab": 550677.6, "assets": [{"symbol": "ETH", "total": 786889.42, "liab": 378516.31}, {"symbol": "USDT", "total": 198434.04, "liab": 146169.09}, {"symbol": "USDC", "total": 266244.4, "liab": 22413.4}, {"symbol": "EURC", "total": 59956.81, "liab": 3578.8}]}, {"name": "Solana", "total": 1367427.21, "liab": 206753.93, "assets": [{"symbol": "SOL", "total": 565133.93, "liab": 38171.44}, {"symbol": "USDT", "total": 203505.4, "liab": 146169.09}, {"symbol": "USDC", "total": 598787.88, "liab": 22413.4}]}, {"name": "Arbitrum", "total": 377851.9, "liab": 547098.8, "assets": [{"symbol": "ETH", "total": 100784.72, "liab": 378516.31}, {"symbol": "USDT", "total": 66819.6, "liab": 146169.09}, {"symbol": "USDC", "total": 210247.58, "liab": 22413.4}]}, {"name": "Base", "total": 466812.07, "liab": 400929.71, "assets": [{"symbol": "ETH", "total": 272380.07, "liab": 378516.31}, {"symbol": "USDC", "total": 194432.0, "liab": 22413.4}]}, {"name": "Optimism", "total": 50295.34, "liab": 547098.8, "assets": [{"symbol": "ETH", "total": 30514.85, "liab": 378516.31}, {"symbol": "USDT", "total": 4322.26, "liab": 146169.09}, {"symbol": "USDC", "total": 15458.23, "liab": 22413.4}]}, {"name": "Polygon", "total": 187746.36, "liab": 168798.21, "assets": [{"symbol": "MATIC", "total": 9216.16, "liab": 215.72}, {"symbol": "USDT", "total": 5173.56, "liab": 146169.09}, {"symbol": "USDC", "total": 173356.64, "liab": 22413.4}]}, {"name": "Binance", "total": 21.04, "liab": 0, "assets": [{"symbol": "BNB", "total": 21.04, "liab": 0}]}], "fbWallets": [{"name": "Treasury", "total": 2594596.94, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 966.97, "liab": 0}, {"symbol": "BTC", "network": "Bitcoin", "total": 34743.26, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 576904.18, "liab": 0}, {"symbol": "USDT", "network": "Ethereum", "total": 248041.42, "liab": 0}, {"symbol": "USDT", "network": "Tron", "total": 450094.28, "liab": 0}, {"symbol": "USDT", "network": "Solana", "total": 232179.99, "liab": 0}, {"symbol": "USDC", "network": "Ethereum", "total": 250051.5, "liab": 0}, {"symbol": "USDC", "network": "Solana", "total": 263910.26, "liab": 0}, {"symbol": "DOGE", "network": "Dogecoin", "total": 38858.65, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 251359.16, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 126123.47, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 121363.8, "liab": 0}]}, {"name": "Deposit", "total": 19.19, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 0.07, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 17.68, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 1.43, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 0.01, "liab": 0}]}, {"name": "Withdrawal", "total": 4199256.91, "liab": 701344.58, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 372209.72, "liab": 110602.59}, {"symbol": "BTC", "network": "Bitcoin", "total": 350206.71, "liab": 86159.65}, {"symbol": "SOL", "network": "Solana", "total": 410114.33, "liab": 47817.75}, {"symbol": "USDT", "network": "Ethereum", "total": 296312.07, "liab": 93150.05}, {"symbol": "USDT", "network": "Tron", "total": 411676.74, "liab": 93150.05}, {"symbol": "USDT", "network": "Solana", "total": 432542.3, "liab": 93150.05}, {"symbol": "USDC", "network": "Ethereum", "total": 289843.05, "liab": 15810.04}, {"symbol": "USDC", "network": "Solana", "total": 294773.87, "liab": 15810.04}, {"symbol": "LTC", "network": "Litecoin", "total": 396610.31, "liab": 331950.42}, {"symbol": "DOGE", "network": "Dogecoin", "total": 159734.94, "liab": 255.48}, {"symbol": "XRP", "network": "Ripple", "total": 307193.54, "liab": 6007.37}, {"symbol": "TRX", "network": "Tron", "total": 159818.35, "liab": 5450.52}, {"symbol": "BNB", "network": "Binance", "total": 295690.87, "liab": 3528.56}, {"symbol": "MATIC", "network": "Polygon", "total": 10335.39, "liab": 601.11}, {"symbol": "EURC", "network": "Ethereum", "total": 12194.72, "liab": 11.04}]}, {"name": "Gas", "total": 7447.9, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 4731.72, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 259.44, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 2336.51, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 65.85, "liab": 0}, {"symbol": "MATIC", "network": "Polygon", "total": 54.38, "liab": 0}]}]}, {"ts": "2026-09-16T15:08:27Z", "total": 10730367.68, "change": 99625.04, "changePct": 0.97, "liabilities": 1442182.3, "unswept": 341973.26, "multiplier": 7.2, "web3Total": 3762502.14, "web3Liab": 766380.57, "fbTotal": 6625892.28, "fbLiab": 675801.73, "web3Chains": [{"name": "Ethereum", "total": 1336040.51, "liab": 554155.85, "assets": [{"symbol": "ETH", "total": 811083.4, "liab": 369341.96}, {"symbol": "USDT", "total": 189598.41, "liab": 154422.48}, {"symbol": "USDC", "total": 275401.89, "liab": 26812.61}, {"symbol": "EURC", "total": 59956.81, "liab": 3578.8}]}, {"name": "Solana", "total": 1350615.57, "liab": 393259.47, "assets": [{"symbol": "SOL", "total": 583427.27, "liab": 212024.38}, {"symbol": "USDT", "total": 179640.25, "liab": 154422.48}, {"symbol": "USDC", "total": 587548.05, "liab": 26812.61}]}, {"name": "Arbitrum", "total": 375034.22, "liab": 550577.05, "assets": [{"symbol": "ETH", "total": 97254.36, "liab": 369341.96}, {"symbol": "USDT", "total": 67463.47, "liab": 154422.48}, {"symbol": "USDC", "total": 210316.39, "liab": 26812.61}]}, {"name": "Base", "total": 464218.69, "liab": 396154.57, "assets": [{"symbol": "ETH", "total": 264080.37, "liab": 369341.96}, {"symbol": "USDC", "total": 200138.32, "liab": 26812.61}]}, {"name": "Optimism", "total": 49467.27, "liab": 550577.05, "assets": [{"symbol": "ETH", "total": 29432.93, "liab": 369341.96}, {"symbol": "USDT", "total": 4577.4, "liab": 154422.48}, {"symbol": "USDC", "total": 15456.94, "liab": 26812.61}]}, {"name": "Polygon", "total": 187105.14, "liab": 181435.43, "assets": [{"symbol": "MATIC", "total": 8567.32, "liab": 200.34}, {"symbol": "USDT", "total": 5275.84, "liab": 154422.48}, {"symbol": "USDC", "total": 173261.98, "liab": 26812.61}]}, {"name": "Binance", "total": 20.74, "liab": 0, "assets": [{"symbol": "BNB", "total": 20.74, "liab": 0}]}], "fbWallets": [{"name": "Treasury", "total": 2538384.22, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 932.68, "liab": 0}, {"symbol": "BTC", "network": "Bitcoin", "total": 34153.26, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 554640.91, "liab": 0}, {"symbol": "USDT", "network": "Ethereum", "total": 247985.59, "liab": 0}, {"symbol": "USDT", "network": "Tron", "total": 449992.98, "liab": 0}, {"symbol": "USDT", "network": "Solana", "total": 232127.73, "liab": 0}, {"symbol": "USDC", "network": "Ethereum", "total": 250030.5, "liab": 0}, {"symbol": "USDC", "network": "Solana", "total": 263888.08, "liab": 0}, {"symbol": "DOGE", "network": "Dogecoin", "total": 37001.35, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 223235.06, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 124797.25, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 119598.83, "liab": 0}]}, {"name": "Deposit", "total": 18.35, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 0.07, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 17.0, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 1.27, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 0.01, "liab": 0}]}, {"name": "Withdrawal", "total": 4080263.33, "liab": 675801.73, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 434339.85, "liab": 105794.45}, {"symbol": "BTC", "network": "Bitcoin", "total": 347315.03, "liab": 85572.9}, {"symbol": "SOL", "network": "Solana", "total": 429868.75, "liab": 43393.58}, {"symbol": "USDT", "network": "Ethereum", "total": 298755.2, "liab": 93051.62}, {"symbol": "USDT", "network": "Tron", "total": 406161.41, "liab": 93051.62}, {"symbol": "USDT", "network": "Solana", "total": 434050.61, "liab": 93051.62}, {"symbol": "USDC", "network": "Ethereum", "total": 289195.18, "liab": 18868.87}, {"symbol": "USDC", "network": "Solana", "total": 155558.56, "liab": 18868.87}, {"symbol": "LTC", "network": "Litecoin", "total": 379554.28, "liab": 315737.19}, {"symbol": "DOGE", "network": "Dogecoin", "total": 152100.2, "liab": 242.52}, {"symbol": "XRP", "network": "Ripple", "total": 278230.98, "liab": 3585.79}, {"symbol": "TRX", "network": "Tron", "total": 158378.51, "liab": 5519.49}, {"symbol": "BNB", "network": "Binance", "total": 294999.79, "liab": 3466.02}, {"symbol": "MATIC", "network": "Polygon", "total": 9607.76, "liab": 558.25}, {"symbol": "EURC", "network": "Ethereum", "total": 12147.22, "liab": 11.05}]}, {"name": "Gas", "total": 7226.38, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 4562.22, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 248.42, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 2300.29, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 64.9, "liab": 0}, {"symbol": "MATIC", "network": "Polygon", "total": 50.55, "liab": 0}]}]}, {"ts": "2026-09-17T09:40:15Z", "total": 11139398.85, "change": 210259.04, "changePct": 2.0, "liabilities": 1302714.05, "unswept": 431677.81, "multiplier": 8.22, "web3Total": 3775477.45, "web3Liab": 605761.56, "fbTotal": 6932243.59, "fbLiab": 696952.49, "web3Chains": [{"name": "Ethereum", "total": 1364388.78, "liab": 572476.88, "assets": [{"symbol": "ETH", "total": 829855.92, "liab": 381160.18}, {"symbol": "USDT", "total": 198029.02, "liab": 159750.78}, {"symbol": "USDC", "total": 276547.03, "liab": 27987.12}, {"symbol": "EURC", "total": 59956.81, "liab": 3578.8}]}, {"name": "Solana", "total": 1291864.4, "liab": 220810.54, "assets": [{"symbol": "SOL", "total": 583767.91, "liab": 33072.64}, {"symbol": "USDT", "total": 157962.19, "liab": 159750.78}, {"symbol": "USDC", "total": 550134.3, "liab": 27987.12}]}, {"name": "Arbitrum", "total": 377735.05, "liab": 568898.08, "assets": [{"symbol": "ETH", "total": 99495.16, "liab": 381160.18}, {"symbol": "USDT", "total": 67927.56, "liab": 159750.78}, {"symbol": "USDC", "total": 210312.33, "liab": 27987.12}]}, {"name": "Base", "total": 503889.65, "liab": 409147.3, "assets": [{"symbol": "ETH", "total": 275866.94, "liab": 381160.18}, {"symbol": "USDC", "total": 228022.71, "liab": 27987.12}]}, {"name": "Optimism", "total": 50152.27, "liab": 568898.08, "assets": [{"symbol": "ETH", "total": 30121.36, "liab": 381160.18}, {"symbol": "USDT", "total": 4576.11, "liab": 159750.78}, {"symbol": "USDC", "total": 15454.8, "liab": 27987.12}]}, {"name": "Polygon", "total": 187426.1, "liab": 187949.94, "assets": [{"symbol": "MATIC", "total": 9069.59, "liab": 212.04}, {"symbol": "USDT", "total": 5002.77, "liab": 159750.78}, {"symbol": "USDC", "total": 173353.74, "liab": 27987.12}]}, {"name": "Binance", "total": 21.2, "liab": 0, "assets": [{"symbol": "BNB", "total": 21.2, "liab": 0}]}], "fbWallets": [{"name": "Treasury", "total": 2557438.71, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 954.17, "liab": 0}, {"symbol": "BTC", "network": "Bitcoin", "total": 34606.03, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 574677.85, "liab": 0}, {"symbol": "USDT", "network": "Ethereum", "total": 247915.38, "liab": 0}, {"symbol": "USDT", "network": "Tron", "total": 449865.56, "liab": 0}, {"symbol": "USDT", "network": "Solana", "total": 320057.42, "liab": 0}, {"symbol": "USDC", "network": "Ethereum", "total": 249995.98, "liab": 0}, {"symbol": "USDC", "network": "Solana", "total": 163856.06, "liab": 0}, {"symbol": "DOGE", "network": "Dogecoin", "total": 38056.38, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 230266.08, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 124899.41, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 122288.39, "liab": 0}]}, {"name": "Deposit", "total": 19.01, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 0.07, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 17.62, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 1.31, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 0.01, "liab": 0}]}, {"name": "Withdrawal", "total": 4367480.92, "liab": 696952.49, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 618486.71, "liab": 109101.51}, {"symbol": "BTC", "network": "Bitcoin", "total": 349269.97, "liab": 88996.84}, {"symbol": "SOL", "network": "Solana", "total": 521252.18, "liab": 39399.01}, {"symbol": "USDT", "network": "Ethereum", "total": 307043.35, "liab": 86330.71}, {"symbol": "USDT", "network": "Tron", "total": 334379.93, "liab": 86330.71}, {"symbol": "USDT", "network": "Solana", "total": 347805.14, "liab": 86330.71}, {"symbol": "USDC", "network": "Ethereum", "total": 293753.6, "liab": 27633.32}, {"symbol": "USDC", "network": "Solana", "total": 260987.98, "liab": 27633.32}, {"symbol": "LTC", "network": "Litecoin", "total": 403021.32, "liab": 331884.39}, {"symbol": "DOGE", "network": "Dogecoin", "total": 156437.07, "liab": 249.94}, {"symbol": "XRP", "network": "Ripple", "total": 292110.26, "liab": 3914.41}, {"symbol": "TRX", "network": "Tron", "total": 158676.37, "liab": 5406.78}, {"symbol": "BNB", "network": "Binance", "total": 301976.37, "liab": 3433.67}, {"symbol": "MATIC", "network": "Polygon", "total": 10171.03, "liab": 590.86}, {"symbol": "EURC", "network": "Ethereum", "total": 12109.64, "liab": 11.05}]}, {"name": "Gas", "total": 7304.95, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 4665.32, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 256.28, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 2263.48, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 66.35, "liab": 0}, {"symbol": "MATIC", "network": "Polygon", "total": 53.52, "liab": 0}]}]}, {"ts": "2026-09-17T11:08:37Z", "total": 10968897.51, "change": 163707.16, "changePct": 1.56, "liabilities": 1305936.99, "unswept": 336451.37, "multiplier": 8.14, "web3Total": 3772420.16, "web3Liab": 601304.66, "fbTotal": 6860025.98, "fbLiab": 704632.33, "web3Chains": [{"name": "Ethereum", "total": 1360902.85, "liab": 569144.66, "assets": [{"symbol": "ETH", "total": 827196.94, "liab": 378434.79}, {"symbol": "USDT", "total": 197157.18, "liab": 159786.49}, {"symbol": "USDC", "total": 276591.92, "liab": 27344.58}, {"symbol": "EURC", "total": 59956.81, "liab": 3578.8}]}, {"name": "Solana", "total": 1294079.1, "liab": 219080.39, "assets": [{"symbol": "SOL", "total": 585941.41, "liab": 31949.32}, {"symbol": "USDT", "total": 158015.5, "liab": 159786.49}, {"symbol": "USDC", "total": 550122.19, "liab": 27344.58}]}, {"name": "Arbitrum", "total": 377332.19, "liab": 565565.86, "assets": [{"symbol": "ETH", "total": 99048.95, "liab": 378434.79}, {"symbol": "USDT", "total": 67975.54, "liab": 159786.49}, {"symbol": "USDC", "total": 210307.7, "liab": 27344.58}]}, {"name": "Base", "total": 502702.65, "liab": 405779.37, "assets": [{"symbol": "ETH", "total": 274629.75, "liab": 378434.79}, {"symbol": "USDC", "total": 228072.9, "liab": 27344.58}]}, {"name": "Optimism", "total": 50016.7, "liab": 565565.86, "assets": [{"symbol": "ETH", "total": 29986.27, "liab": 378434.79}, {"symbol": "USDT", "total": 4575.97, "liab": 159786.49}, {"symbol": "USDC", "total": 15454.46, "liab": 27344.58}]}, {"name": "Polygon", "total": 187365.56, "liab": 187341.75, "assets": [{"symbol": "MATIC", "total": 9013.0, "liab": 210.68}, {"symbol": "USDT", "total": 5002.63, "liab": 159786.49}, {"symbol": "USDC", "total": 173349.93, "liab": 27344.58}]}, {"name": "Binance", "total": 21.11, "liab": 0, "assets": [{"symbol": "BNB", "total": 21.11, "liab": 0}]}], "fbWallets": [{"name": "Treasury", "total": 2550706.37, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 949.89, "liab": 0}, {"symbol": "BTC", "network": "Bitcoin", "total": 34471.96, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 570796.05, "liab": 0}, {"symbol": "USDT", "network": "Ethereum", "total": 247908.18, "liab": 0}, {"symbol": "USDT", "network": "Tron", "total": 449852.5, "liab": 0}, {"symbol": "USDT", "network": "Solana", "total": 320048.13, "liab": 0}, {"symbol": "USDC", "network": "Ethereum", "total": 249990.48, "liab": 0}, {"symbol": "USDC", "network": "Solana", "total": 163852.45, "liab": 0}, {"symbol": "DOGE", "network": "Dogecoin", "total": 37835.45, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 228508.33, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 124763.69, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 121729.26, "liab": 0}]}, {"name": "Deposit", "total": 18.88, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 0.07, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 17.5, "liab": 0}]}, {"name": "Withdrawal", "total": 4302034.05, "liab": 704632.33, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 523863.24, "liab": 108937.72}, {"symbol": "BTC", "network": "Bitcoin", "total": 347916.83, "liab": 88735.66}, {"symbol": "SOL", "network": "Solana", "total": 526179.77, "liab": 40053.44}, {"symbol": "USDT", "network": "Ethereum", "total": 308848.59, "liab": 90927.32}, {"symbol": "USDT", "network": "Tron", "total": 336998.37, "liab": 90927.32}, {"symbol": "USDT", "network": "Solana", "total": 350084.78, "liab": 90927.32}, {"symbol": "USDC", "network": "Ethereum", "total": 295070.47, "liab": 31499.29}, {"symbol": "USDC", "network": "Solana", "total": 283706.56, "liab": 31499.29}, {"symbol": "LTC", "network": "Litecoin", "total": 402301.92, "liab": 330739.07}, {"symbol": "DOGE", "network": "Dogecoin", "total": 155528.91, "liab": 247.69}, {"symbol": "XRP", "network": "Ripple", "total": 290201.52, "liab": 4031.07}, {"symbol": "TRX", "network": "Tron", "total": 158499.42, "liab": 5447.3}, {"symbol": "BNB", "network": "Binance", "total": 300616.46, "liab": 3415.65}, {"symbol": "MATIC", "network": "Polygon", "total": 10107.57, "liab": 587.07}, {"symbol": "EURC", "network": "Ethereum", "total": 12109.64, "liab": 11.05}]}, {"name": "Gas", "total": 7266.68, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 4643.99, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 254.21, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 2249.25, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 66.05, "liab": 0}, {"symbol": "MATIC", "network": "Polygon", "total": 53.18, "liab": 0}]}]}, {"ts": "2026-09-17T15:07:53Z", "total": 11241323.81, "change": 418394.4, "changePct": 3.98, "liabilities": 1685437.39, "unswept": 321417.23, "multiplier": 6.48, "web3Total": 3825308.29, "web3Liab": 706085.17, "fbTotal": 7094598.29, "fbLiab": 979352.22, "web3Chains": [{"name": "Ethereum", "total": 1370880.48, "liab": 674060.59, "assets": [{"symbol": "ETH", "total": 836453.96, "liab": 386824.43}, {"symbol": "USDT", "total": 196223.61, "liab": 257375.54}, {"symbol": "USDC", "total": 278246.1, "liab": 26281.82}, {"symbol": "EURC", "total": 59956.81, "liab": 3578.8}]}, {"name": "Solana", "total": 1333271.71, "liab": 315466.93, "assets": [{"symbol": "SOL", "total": 610501.42, "liab": 31809.57}, {"symbol": "USDT", "total": 161513.3, "liab": 257375.54}, {"symbol": "USDC", "total": 561256.99, "liab": 26281.82}]}, {"name": "Arbitrum", "total": 378146.66, "liab": 670481.79, "assets": [{"symbol": "ETH", "total": 99901.9, "liab": 386824.43}, {"symbol": "USDT", "total": 67937.9, "liab": 257375.54}, {"symbol": "USDC", "total": 210306.86, "liab": 26281.82}]}, {"name": "Base", "total": 505153.42, "liab": 413106.25, "assets": [{"symbol": "ETH", "total": 276838.36, "liab": 386824.43}, {"symbol": "USDC", "total": 228315.06, "liab": 26281.82}]}, {"name": "Optimism", "total": 50285.48, "liab": 670481.79, "assets": [{"symbol": "ETH", "total": 30255.06, "liab": 386824.43}, {"symbol": "USDT", "total": 4576.02, "liab": 257375.54}, {"symbol": "USDC", "total": 15454.4, "liab": 26281.82}]}, {"name": "Polygon", "total": 187549.37, "liab": 283872.37, "assets": [{"symbol": "MATIC", "total": 9183.54, "liab": 215.01}, {"symbol": "USDT", "total": 5016.6, "liab": 257375.54}, {"symbol": "USDC", "total": 173349.23, "liab": 26281.82}]}, {"name": "Binance", "total": 21.17, "liab": 0, "assets": [{"symbol": "BNB", "total": 21.17, "liab": 0}]}], "fbWallets": [{"name": "Treasury", "total": 2555665.78, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 958.07, "liab": 0}, {"symbol": "BTC", "network": "Bitcoin", "total": 34476.02, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 575191.62, "liab": 0}, {"symbol": "USDT", "network": "Ethereum", "total": 247910.91, "liab": 0}, {"symbol": "USDT", "network": "Tron", "total": 449857.46, "liab": 0}, {"symbol": "USDT", "network": "Solana", "total": 320051.66, "liab": 0}, {"symbol": "USDC", "network": "Ethereum", "total": 249989.48, "liab": 0}, {"symbol": "USDC", "network": "Solana", "total": 163851.8, "liab": 0}, {"symbol": "DOGE", "network": "Dogecoin", "total": 38162.63, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 228508.33, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 124606.35, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 122101.45, "liab": 0}]}, {"name": "Deposit", "total": 19.01, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 0.07, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 17.63, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 1.3, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 0.01, "liab": 0}]}, {"name": "Withdrawal", "total": 4531620.7, "liab": 979352.22, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 706702.34, "liab": 366304.52}, {"symbol": "BTC", "network": "Bitcoin", "total": 347114.61, "liab": 87678.33}, {"symbol": "SOL", "network": "Solana", "total": 538560.37, "liab": 42717.81}, {"symbol": "USDT", "network": "Ethereum", "total": 311344.47, "liab": 104768.9}, {"symbol": "USDT", "network": "Tron", "total": 339123.04, "liab": 104768.9}, {"symbol": "USDT", "network": "Solana", "total": 350182.05, "liab": 104768.9}, {"symbol": "USDC", "network": "Ethereum", "total": 326200.12, "liab": 30734.26}, {"symbol": "USDC", "network": "Solana", "total": 276166.45, "liab": 30734.26}, {"symbol": "LTC", "network": "Litecoin", "total": 405063.06, "liab": 333785.25}, {"symbol": "DOGE", "network": "Dogecoin", "total": 157197.83, "liab": 253.85}, {"symbol": "XRP", "network": "Ripple", "total": 291098.7, "liab": 3639.06}, {"symbol": "TRX", "network": "Tron", "total": 158446.61, "liab": 5431.28}, {"symbol": "BNB", "network": "Binance", "total": 302012.6, "liab": 3428.77}, {"symbol": "MATIC", "network": "Polygon", "total": 10298.81, "liab": 599.14}, {"symbol": "EURC", "network": "Ethereum", "total": 12109.64, "liab": 11.05}]}, {"name": "Gas", "total": 7292.8, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 4681.59, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 255.81, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 2234.96, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 66.25, "liab": 0}, {"symbol": "MATIC", "network": "Polygon", "total": 54.19, "liab": 0}]}]}, {"ts": "2026-09-18T07:59:54Z", "total": 10966479.46, "change": 161432.28, "changePct": 1.54, "liabilities": 1399288.27, "unswept": 326528.54, "multiplier": 7.6, "web3Total": 3601945.84, "web3Liab": 609168.41, "fbTotal": 7038005.08, "fbLiab": 790119.86, "web3Chains": [{"name": "Ethereum", "total": 1383574.06, "liab": 570064.79, "assets": [{"symbol": "ETH", "total": 836018.03, "liab": 384185.78}, {"symbol": "USDT", "total": 209218.1, "liab": 162902.64}, {"symbol": "USDC", "total": 278381.12, "liab": 19397.57}, {"symbol": "EURC", "total": 59956.81, "liab": 3578.8}]}, {"name": "Solana", "total": 1077303.34, "liab": 221185.82, "assets": [{"symbol": "SOL", "total": 461213.56, "liab": 38885.61}, {"symbol": "USDT", "total": 64473.63, "liab": 162902.64}, {"symbol": "USDC", "total": 551616.15, "liab": 19397.57}]}, {"name": "Arbitrum", "total": 378946.79, "liab": 566485.99, "assets": [{"symbol": "ETH", "total": 100421.4, "liab": 384185.78}, {"symbol": "USDT", "total": 68202.17, "liab": 162902.64}, {"symbol": "USDC", "total": 210323.22, "liab": 19397.57}]}, {"name": "Base", "total": 525490.28, "liab": 403583.35, "assets": [{"symbol": "ETH", "total": 285033.06, "liab": 384185.78}, {"symbol": "USDC", "total": 240457.22, "liab": 19397.57}]}, {"name": "Optimism", "total": 50737.26, "liab": 566485.99, "assets": [{"symbol": "ETH", "total": 30707.6, "liab": 384185.78}, {"symbol": "USDT", "total": 4575.99, "liab": 162902.64}, {"symbol": "USDC", "total": 15453.67, "liab": 19397.57}]}, {"name": "Polygon", "total": 185872.15, "liab": 182518.22, "assets": [{"symbol": "MATIC", "total": 9361.95, "liab": 218.01}, {"symbol": "USDT", "total": 3733.46, "liab": 162902.64}, {"symbol": "USDC", "total": 172776.74, "liab": 19397.57}]}, {"name": "Binance", "total": 21.96, "liab": 0, "assets": [{"symbol": "BNB", "total": 21.96, "liab": 0}]}], "fbWallets": [{"name": "Treasury", "total": 2596808.27, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 971.0, "liab": 0}, {"symbol": "BTC", "network": "Bitcoin", "total": 35117.48, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 603791.36, "liab": 0}, {"symbol": "USDT", "network": "Ethereum", "total": 247909.17, "liab": 0}, {"symbol": "USDT", "network": "Tron", "total": 449854.3, "liab": 0}, {"symbol": "USDT", "network": "Solana", "total": 320049.41, "liab": 0}, {"symbol": "USDC", "network": "Ethereum", "total": 249977.73, "liab": 0}, {"symbol": "USDC", "network": "Solana", "total": 163844.09, "liab": 0}, {"symbol": "DOGE", "network": "Dogecoin", "total": 39445.61, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 233781.6, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 125402.75, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 126663.77, "liab": 0}]}, {"name": "Deposit", "total": 19.93, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 0.08, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 18.51, "liab": 0}, {"symbol": "XRP", "network": "Ripple", "total": 1.33, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 0.01, "liab": 0}]}, {"name": "Withdrawal", "total": 4433836.86, "liab": 790119.86, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 479825.7, "liab": 167051.03}, {"symbol": "BTC", "network": "Bitcoin", "total": 353920.36, "liab": 91199.19}, {"symbol": "SOL", "network": "Solana", "total": 599112.84, "liab": 69866.26}, {"symbol": "USDT", "network": "Ethereum", "total": 316574.03, "liab": 86901.7}, {"symbol": "USDT", "network": "Tron", "total": 341328.37, "liab": 86901.7}, {"symbol": "USDT", "network": "Solana", "total": 355454.29, "liab": 86901.7}, {"symbol": "USDC", "network": "Ethereum", "total": 352730.47, "liab": 17420.61}, {"symbol": "USDC", "network": "Solana", "total": 256368.49, "liab": 17420.61}, {"symbol": "LTC", "network": "Litecoin", "total": 423330.06, "liab": 345952.74}, {"symbol": "DOGE", "network": "Dogecoin", "total": 162464.46, "liab": 259.55}, {"symbol": "XRP", "network": "Ripple", "total": 295501.06, "liab": 1817.75}, {"symbol": "TRX", "network": "Tron", "total": 160467.17, "liab": 5484.34}, {"symbol": "BNB", "network": "Binance", "total": 314151.02, "liab": 3548.15}, {"symbol": "MATIC", "network": "Polygon", "total": 10498.9, "liab": 607.49}, {"symbol": "EURC", "network": "Ethereum", "total": 12109.64, "liab": 11.05}]}, {"name": "Gas", "total": 7340.02, "liab": 0, "assets": [{"symbol": "ETH", "network": "Ethereum", "total": 4743.16, "liab": 0}, {"symbol": "SOL", "network": "Solana", "total": 268.08, "liab": 0}, {"symbol": "TRX", "network": "Tron", "total": 2204.82, "liab": 0}, {"symbol": "BNB", "network": "Binance", "total": 68.72, "liab": 0}, {"symbol": "MATIC", "network": "Polygon", "total": 55.24, "liab": 0}]}]}];
-
-let cryptosnapInitialized = false;
-let cryptosnapActiveHistoryRow = null;
-let cryptosnapToggleCounter = 0;
-
-function cryptosnapFmt(n) {
-  if (n == null) return '—';
-  return '$' + n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
-}
-function cryptosnapFmtTs(ts) {
-  const d = new Date(ts);
-  return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-}
-function cryptosnapAggregateCurrencies(snap) {
-  const map = new Map();
-  const add = (sym, total) => { if (total > 0) map.set(sym, (map.get(sym) || 0) + total); };
-  (snap.web3Chains || []).forEach(c => (c.assets || []).forEach(a => add(a.symbol, a.total)));
-  (snap.fbWallets || []).forEach(w => (w.assets || []).forEach(a => add(a.symbol, a.total)));
-  return Array.from(map.entries()).map(([symbol, total]) => ({ symbol, total })).sort((a,b) => b.total - a.total);
-}
-function cryptosnapInstanceBreakdown(snap) {
-  const rows = [];
-  (snap.web3Chains || []).forEach(c => (c.assets || []).forEach(a => {
-    if (a.total > 0) rows.push({ key: 'web3|' + c.name + '|' + a.symbol, label: a.symbol, sub: c.name, section: 'Web3', group: c.name, total: a.total });
-  }));
-  (snap.fbWallets || []).forEach(w => (w.assets || []).forEach(a => {
-    if (a.total > 0) rows.push({ key: 'fb|' + w.name + '|' + a.symbol + '|' + (a.network || ''), label: a.symbol, sub: (a.network ? a.network + ' · ' : '') + w.name, section: 'Fireblocks', group: w.name, total: a.total });
-  }));
-  return rows;
-}
-function cryptosnapFindDetailSnapshotNear(history, snap, hoursAgo) {
-  const targetTime = new Date(snap.ts).getTime() - hoursAgo * 60 * 60 * 1000;
-  const hasDetail = s => (s.web3Chains && s.web3Chains.length) || (s.fbWallets && s.fbWallets.length);
-  let best = null, bestDiff = Infinity;
-  history.forEach(s => {
-    if (s.ts === snap.ts || !hasDetail(s)) return;
-    const diff = Math.abs(new Date(s.ts).getTime() - targetTime);
-    if (diff < bestDiff) { bestDiff = diff; best = s; }
-  });
-  return (best && bestDiff <= 12 * 60 * 60 * 1000) ? best : null;
-}
-function cryptosnapComputeInstanceDeltas(history, snap) {
-  const best = cryptosnapFindDetailSnapshotNear(history, snap, 24);
-  if (!best) return null;
-  const prevMap = new Map(cryptosnapInstanceBreakdown(best).map(r => [r.key, r.total]));
-  const rows = cryptosnapInstanceBreakdown(snap).map(r => {
-    const prevTotal = prevMap.get(r.key);
-    if (prevTotal == null || prevTotal <= 0) return null;
-    const delta = r.total - prevTotal;
-    return Object.assign({}, r, { prevTotal, delta, deltaPct: delta / prevTotal * 100 });
-  }).filter(Boolean);
-  return { rows, comparedTo: best.ts };
-}
-function cryptosnapCurrencyDeltas(history, snap) {
-  const best = cryptosnapFindDetailSnapshotNear(history, snap, 24);
-  if (!best) return null;
-  const prevMap = new Map(cryptosnapAggregateCurrencies(best).map(c => [c.symbol, c.total]));
-  return { map: prevMap, comparedTo: best.ts };
-}
-function cryptosnapTopMoverForGroup(instanceDeltas, section, groupName) {
-  if (!instanceDeltas) return null;
-  const rows = instanceDeltas.rows.filter(r => r.section === section && r.group === groupName);
-  if (!rows.length) return null;
-  return rows.reduce((a, b) => (Math.abs(b.delta) > Math.abs(a.delta) ? b : a));
-}
-const CRYPTOSNAP_COLORS = ['#0ABAB5','#4dd0c9','#f59e0b','#ef4444','#a78bfa','#38bdf8','#fbbf24','#f472b6','#34d399','#4ade80','#94a3b8','#64748b'];
-
-function cryptosnapBuildExpandableTable(tbody, rows, instanceDeltas, section) {
-  rows.forEach(row => {
-    const hasAssets = row.assets && row.assets.length > 0;
-    const groupId = 'csg' + (++cryptosnapToggleCounter);
-    const tr = document.createElement('tr');
-    tr.className = hasAssets ? 'cryptosnap-parent-row' : '';
-    const mover = cryptosnapTopMoverForGroup(instanceDeltas, section, row.name);
-    const moverHtml = mover
-      ? ` <span style="font-size:11px;color:${mover.delta >= 0 ? '#0ABAB5' : '#ff3b30'};margin-left:6px">${mover.label} ${mover.delta >= 0 ? '+' : ''}${mover.deltaPct.toFixed(1)}% (24h)</span>`
-      : '';
-    tr.innerHTML = `
-      <td><span class="cryptosnap-toggle" id="cstog-${groupId}">${hasAssets ? '&#9654;' : '&nbsp;&nbsp;'}</span>
-          <span class="cryptosnap-badge">${row.name}</span>${moverHtml}</td>
-      <td>${cryptosnapFmt(row.total)}</td>
-      <td>${row.liab > 0 ? cryptosnapFmt(row.liab) : '—'}</td>`;
-    if (hasAssets) {
-      tr.addEventListener('click', () => {
-        const tog = document.getElementById('cstog-' + groupId);
-        const isOpen = tog.classList.toggle('cryptosnap-open');
-        document.querySelectorAll('.' + groupId).forEach(el => el.classList.toggle('cryptosnap-hidden', !isOpen));
-      });
-    }
-    tbody.appendChild(tr);
-    if (hasAssets) {
-      row.assets.forEach(a => {
-        const ar = document.createElement('tr');
-        ar.className = 'cryptosnap-asset-row cryptosnap-hidden ' + groupId;
-        const symLabel = a.network
-          ? `<span class="cryptosnap-asset-sym">${a.symbol}</span><br><span style="font-size:11px;color:#666">${a.network}</span>`
-          : `<span class="cryptosnap-asset-sym">${a.symbol}</span>`;
-        ar.innerHTML = `
-          <td>${symLabel}</td>
-          <td>${cryptosnapFmt(a.total)}</td>
-          <td>${a.liab > 0 ? cryptosnapFmt(a.liab) : '—'}</td>`;
-        tbody.appendChild(ar);
-      });
-    }
-  });
-  const totalVal = rows.reduce((s, r) => s + (r.total || 0), 0);
-  const liabVal  = rows.reduce((s, r) => s + (r.liab  || 0), 0);
-  const ttr = document.createElement('tr');
-  ttr.className = 'cryptosnap-total-row';
-  ttr.innerHTML = `<td>Total</td><td>${cryptosnapFmt(totalVal)}</td><td>${cryptosnapFmt(liabVal)}</td>`;
-  tbody.appendChild(ttr);
-}
-
-function cryptosnapRenderSnapshot(history, latest, snap, isLatest) {
-  const subtitle = document.getElementById('cryptosnapLastUpdated');
-  if (isLatest) {
-    subtitle.innerHTML = 'Last updated: ' + cryptosnapFmtTs(snap.ts) + ' · Refreshed every 6 hours via source artifact';
-    subtitle.style.color = '';
-  } else {
-    subtitle.innerHTML = `Viewing snapshot: <strong>${cryptosnapFmtTs(snap.ts)}</strong> &nbsp;<a href="#" id="cryptosnapBackToLatest" style="color:#0ABAB5;font-size:12px">← Back to latest</a>`;
-    subtitle.style.color = '#0ABAB5';
-    document.getElementById('cryptosnapBackToLatest').addEventListener('click', e => {
-      e.preventDefault();
-      cryptosnapRenderSnapshot(history, latest, latest, true);
-      if (cryptosnapActiveHistoryRow) { cryptosnapActiveHistoryRow.style.background = ''; cryptosnapActiveHistoryRow = null; }
-    });
-  }
-  document.getElementById('cryptosnapKpiTotal').textContent = cryptosnapFmt(snap.total);
-  const changeEl = document.getElementById('cryptosnapKpiChange');
-  const chSign = snap.change >= 0 ? '+' : '';
-  changeEl.textContent = chSign + cryptosnapFmt(snap.change) + ' (' + chSign + (snap.changePct != null ? snap.changePct.toFixed(2) : '—') + '%)';
-  changeEl.className = 'cryptosnap-kpi-change ' + (snap.change >= 0 ? 'cryptosnap-pos' : 'cryptosnap-neg');
-  document.getElementById('cryptosnapKpiLiab').textContent = cryptosnapFmt(snap.liabilities);
-  document.getElementById('cryptosnapKpiUnswept').textContent = cryptosnapFmt(snap.unswept);
-  document.getElementById('cryptosnapKpiMult').textContent = snap.multiplier + 'x';
-
-  const web3Tbody = document.querySelector('#cryptosnapWeb3Table tbody');
-  const fbTbody = document.querySelector('#cryptosnapFbTable tbody');
-  web3Tbody.innerHTML = '';
-  fbTbody.innerHTML = '';
-  const instanceDeltas = cryptosnapComputeInstanceDeltas(history, snap);
-  cryptosnapBuildExpandableTable(web3Tbody, snap.web3Chains || [], instanceDeltas, 'Web3');
-  cryptosnapBuildExpandableTable(fbTbody, snap.fbWallets || [], instanceDeltas, 'Fireblocks');
-
-  const currencies = cryptosnapAggregateCurrencies(snap);
-  const currencyCard = document.getElementById('cryptosnapCurrencyCard');
-  const bar = document.getElementById('cryptosnapCurrencyBar');
-  const currBody = document.getElementById('cryptosnapCurrencyBody');
-  bar.innerHTML = '';
-  currBody.innerHTML = '';
-  if (currencies.length > 0) {
-    currencyCard.style.display = '';
-    const grandTotal = currencies.reduce((s, c) => s + c.total, 0);
-    const currDeltas = cryptosnapCurrencyDeltas(history, snap);
-    currencies.forEach((c, i) => {
-      const seg = document.createElement('div');
-      seg.className = 'cryptosnap-currency-bar-seg';
-      seg.style.width = (c.total / grandTotal * 100).toFixed(2) + '%';
-      seg.style.background = CRYPTOSNAP_COLORS[i % CRYPTOSNAP_COLORS.length];
-      seg.title = c.symbol + ': ' + cryptosnapFmt(c.total);
-      bar.appendChild(seg);
-    });
-    currencies.forEach((c, i) => {
-      const pct = (c.total / grandTotal * 100).toFixed(1);
-      let deltaHtml = '<span style="color:#888;font-size:12px">—</span>';
-      if (currDeltas) {
-        const prevTotal = currDeltas.map.get(c.symbol);
-        if (prevTotal != null && prevTotal > 0) {
-          const delta = c.total - prevTotal;
-          const deltaPct = delta / prevTotal * 100;
-          const sign = delta >= 0 ? '+' : '';
-          const cls = delta >= 0 ? 'cryptosnap-pos' : 'cryptosnap-neg';
-          deltaHtml = `<span class="${cls}" style="font-size:12px">${sign}${deltaPct.toFixed(2)}%</span>`;
-        }
-      }
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${CRYPTOSNAP_COLORS[i % CRYPTOSNAP_COLORS.length]};margin-right:7px;vertical-align:middle"></span>
-            <span class="cryptosnap-badge">${c.symbol}</span></td>
-        <td style="font-weight:600">${cryptosnapFmt(c.total)}</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:1;height:5px;background:#2a2a2a;border-radius:3px;max-width:100px">
-              <div style="width:${pct}%;height:100%;background:${CRYPTOSNAP_COLORS[i % CRYPTOSNAP_COLORS.length]};border-radius:3px"></div>
-            </div>
-            <span style="color:#888;font-size:12px;min-width:36px">${pct}%</span>
-          </div>
-        </td>
-        <td>${deltaHtml}</td>`;
-      currBody.appendChild(tr);
-    });
-    const ttr = document.createElement('tr');
-    ttr.className = 'cryptosnap-total-row';
-    ttr.innerHTML = `<td>Total (excl. unswept)</td><td>${cryptosnapFmt(grandTotal)}</td><td></td><td></td>`;
-    currBody.appendChild(ttr);
-  } else {
-    currencyCard.style.display = 'none';
-  }
-
-  const moversCard = document.getElementById('cryptosnapMoversCard');
-  if (instanceDeltas && instanceDeltas.rows.length) {
-    moversCard.style.display = '';
-    document.getElementById('cryptosnapMoversLabel').textContent = '(vs ' + cryptosnapFmtTs(instanceDeltas.comparedTo) + ')';
-    const summaryEl = document.getElementById('cryptosnapMoversSummary');
-    const compSnap = history.find(s => s.ts === instanceDeltas.comparedTo);
-    if (compSnap) {
-      const d = snap.total - compSnap.total;
-      const dPct = compSnap.total ? (d / compSnap.total * 100) : 0;
-      const sign = d >= 0 ? '+' : '';
-      const cls = d >= 0 ? 'cryptosnap-pos' : 'cryptosnap-neg';
-      summaryEl.innerHTML = 'Total balance <span class="' + cls + '" style="font-weight:600">' + sign + cryptosnapFmt(d) + ' (' + sign + dPct.toFixed(2) + '%)</span> over the last 24h';
-      summaryEl.style.display = '';
-    } else {
-      summaryEl.style.display = 'none';
-    }
-    const moverPart = (m, label) => {
-      if (!m) return `<span style="font-size:12px;color:#888">${label}: —</span>`;
-      const sign = m.delta >= 0 ? '+' : '';
-      const cls = m.delta >= 0 ? 'cryptosnap-pos' : 'cryptosnap-neg';
-      return `<span style="font-size:11px;color:#888">${label}</span> <span class="cryptosnap-badge" style="font-size:12px">${m.label}</span> <span style="font-size:11px;color:#888">${m.sub}</span> <span class="${cls}" style="font-size:13px;font-weight:700">${sign}${m.deltaPct.toFixed(2)}%</span> <span style="font-size:11px;color:#888">(${cryptosnapFmt(m.total)})</span>`;
-    };
-    const renderMoverLine = (gainer, loser, elId) => {
-      document.getElementById(elId).innerHTML =
-        `<div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">${moverPart(gainer, 'Gainer')}${moverPart(loser, 'Loser')}</div>`;
-    };
-    const bestOf = (rows, cmp) => (rows.length ? rows.reduce(cmp) : null);
-    const web3Rows = instanceDeltas.rows.filter(r => r.section === 'Web3');
-    const fbRows = instanceDeltas.rows.filter(r => r.section === 'Fireblocks');
-    renderMoverLine(
-      bestOf(web3Rows, (a, b) => (b.delta > a.delta ? b : a)),
-      bestOf(web3Rows, (a, b) => (b.delta < a.delta ? b : a)),
-      'cryptosnapMoverWeb3Line'
-    );
-    renderMoverLine(
-      bestOf(fbRows, (a, b) => (b.delta > a.delta ? b : a)),
-      bestOf(fbRows, (a, b) => (b.delta < a.delta ? b : a)),
-      'cryptosnapMoverFbLine'
-    );
-  } else {
-    moversCard.style.display = 'none';
-  }
-}
-
-function cryptosnapInitTab() {
-  if (cryptosnapInitialized) return;
-  cryptosnapInitialized = true;
-
-  const history = [...CRYPTOSNAP_HISTORY_DATA].sort((a,b) => new Date(a.ts) - new Date(b.ts));
-  if (history.length === 0) {
-    document.getElementById('cryptosnapLastUpdated').textContent = 'No snapshot history loaded yet.';
-    return;
-  }
-  const latest = history[history.length - 1];
-
-  document.getElementById('cryptosnapKpiSnaps').textContent = history.length;
-  document.getElementById('cryptosnapKpiFirst').textContent = history.length > 1 ? 'Since ' + cryptosnapFmtTs(history[0].ts) : 'First snapshot';
-
-  const chartCanvas = document.getElementById('cryptosnapTotalChart');
-  const noDataMsg = document.getElementById('cryptosnapNoDataMsg');
-  if (history.length < 2) {
-    chartCanvas.style.display = 'none';
-    noDataMsg.style.display = 'block';
-  } else {
-    const ath = history.reduce((m, s) => (s.total > m.total ? s : m), history[0]);
-    const atl = history.reduce((m, s) => (s.total < m.total ? s : m), history[0]);
-    document.getElementById('cryptosnapChartLabel').textContent =
-      '(' + history.length + ' snapshots) · High ' + cryptosnapFmt(ath.total) + ' on ' + cryptosnapFmtTs(ath.ts) + ' · Low ' + cryptosnapFmt(atl.total) + ' on ' + cryptosnapFmtTs(atl.ts);
-    try {
-      if (typeof Chart === 'undefined') throw new Error('Chart.js failed to load');
-      new Chart(chartCanvas, {
-        type: 'line',
-        data: {
-          labels: history.map(s => cryptosnapFmtTs(s.ts)),
-          datasets: [{
-            label: 'Total Balance',
-            data: history.map(s => s.total),
-            borderColor: '#0ABAB5',
-            backgroundColor: 'rgba(10,186,181,0.08)',
-            fill: true, tension: 0.3,
-            pointRadius: history.length > 20 ? 2 : 4,
-            pointBackgroundColor: '#0ABAB5', borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false },
-            tooltip: { callbacks: { label: ctx => cryptosnapFmt(ctx.parsed.y) } }
-          },
-          scales: {
-            y: { ticks: { color: '#888', callback: v => '$' + (v/1e6).toFixed(2) + 'M', font: { size: 11 } }, grid: { color: '#2a2a2a' } },
-            x: { ticks: { color: '#888', font: { size: 10 }, maxTicksLimit: 8 }, grid: { display: false } }
-          }
-        }
-      });
-    } catch(e) {
-      console.warn('Total balance chart failed to render:', e);
-      chartCanvas.style.display = 'none';
-      noDataMsg.textContent = 'Chart library unavailable — showing data below instead.';
-      noDataMsg.style.display = 'block';
-    }
-  }
-
-  try {
-    if (typeof Chart === 'undefined') throw new Error('Chart.js failed to load');
-    const cryptosnapPctLabelPlugin = {
-      id: 'cryptosnapPctLabels',
-      afterDraw(chart) {
-        const ctx = chart.ctx;
-        const meta = chart.getDatasetMeta(0);
-        const values = chart.data.datasets[0].data;
-        const total = values.reduce((a, b) => a + b, 0);
-        if (!total) return;
-        ctx.save();
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        meta.data.forEach((arc, i) => {
-          const pct = (values[i] / total * 100).toFixed(1) + '%';
-          const pos = arc.tooltipPosition();
-          ctx.fillText(pct, pos.x, pos.y);
-        });
-        ctx.restore();
-      }
-    };
-    new Chart(document.getElementById('cryptosnapSplitChart'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Web3', 'Fireblocks'],
-        datasets: [{ data: [latest.web3Total, latest.fbTotal], backgroundColor: ['#0ABAB5', '#f97316'], borderWidth: 2, borderColor: '#1a1a1a' }]
-      },
-      plugins: [cryptosnapPctLabelPlugin],
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { position: 'bottom', labels: { color: '#d0d0d0', font: { size: 12 }, padding: 12 } },
-          tooltip: { callbacks: { label: ctx => ctx.label + ': ' + cryptosnapFmt(ctx.parsed) } }
-        }
-      }
-    });
-  } catch(e) {
-    console.warn('Web3 vs Fireblocks chart failed to render:', e);
-    document.getElementById('cryptosnapSplitChart').style.display = 'none';
-  }
-
-  document.getElementById('cryptosnapHistLabel').textContent = '(' + history.length + ' entries — click to expand)';
-  document.getElementById('cryptosnapHistHeader').addEventListener('click', () => {
-    document.getElementById('cryptosnapHistoryTableWrap').classList.toggle('cryptosnap-hidden');
-    document.getElementById('cryptosnapHistToggle').classList.toggle('cryptosnap-open');
-  });
-  const histBody = document.getElementById('cryptosnapHistoryBody');
-  [...history].reverse().forEach((s, i) => {
-    const prev = history[history.length - 2 - i];
-    const delta = prev ? s.total - prev.total : null;
-    let deltaHtml = '—';
-    if (delta !== null) {
-      const sign = delta >= 0 ? '+' : '';
-      deltaHtml = `<span class="${delta >= 0 ? 'cryptosnap-pos' : 'cryptosnap-neg'}">${sign}${cryptosnapFmt(delta)}</span>`;
-    }
-    const isLatestRow = (s.ts === latest.ts);
-    const tr = document.createElement('tr');
-    tr.style.cursor = 'pointer';
-    tr.title = 'Click to view this snapshot';
-    tr.innerHTML = `
-      <td class="cryptosnap-ts">${cryptosnapFmtTs(s.ts)}${isLatestRow ? ' <span style="color:#0ABAB5;font-size:10px;font-weight:600">LATEST</span>' : ''}</td>
-      <td style="font-weight:600">${cryptosnapFmt(s.total)}</td>
-      <td>${deltaHtml}</td>
-      <td>${cryptosnapFmt(s.liabilities)}</td>
-      <td>${cryptosnapFmt(s.unswept)}</td>
-      <td>${s.multiplier}x</td>
-      <td>${cryptosnapFmt(s.web3Total)}</td>
-      <td>${cryptosnapFmt(s.fbTotal)}</td>`;
-    tr.addEventListener('click', () => {
-      if (cryptosnapActiveHistoryRow) cryptosnapActiveHistoryRow.style.background = '';
-      tr.style.background = 'rgba(10,186,181,0.12)';
-      cryptosnapActiveHistoryRow = tr;
-      cryptosnapRenderSnapshot(history, latest, s, isLatestRow);
-      document.getElementById('cryptosnapCurrencyCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-    histBody.appendChild(tr);
-  });
-
-  cryptosnapRenderSnapshot(history, latest, latest, true);
-}
-
-function renderCryptoSnapTab() {
-  cryptosnapInitTab();
-}
-
-
-
 // Normalize a company name for fuzzy matching (lowercase, strip common suffixes/punctuation)
 function normalizeCompanyName(name) {
   if (!name) return '';
@@ -2402,8 +1981,8 @@ document.getElementById('resetLink').addEventListener('click', async () => {
 });
 
 // ============ TAB SWITCHING ============
-const ALL_TABS = ['tabBalances', 'tabCrypto', 'tabForecast', 'tabPSP', 'tabInvoiceList', 'tabAffiliates', 'tabContractors', 'tabCryptoSnap', 'tabLiveTest'];
-const ALL_VIEWS = ['viewBalances', 'viewCrypto', 'viewForecast', 'viewPSP', 'viewInvoiceList', 'viewAffiliates', 'viewContractors', 'viewCryptoSnap', 'viewLiveTest'];
+const ALL_TABS = ['tabBalances', 'tabCrypto', 'tabForecast', 'tabPSP', 'tabInvoiceList', 'tabAffiliates', 'tabContractors', 'tabLiveTest'];
+const ALL_VIEWS = ['viewBalances', 'viewCrypto', 'viewForecast', 'viewPSP', 'viewInvoiceList', 'viewAffiliates', 'viewContractors', 'viewLiveTest'];
 
 function switchToTab(tabId, viewId, renderFn) {
   ALL_TABS.forEach(t => document.getElementById(t).classList.toggle('active', t === tabId));
@@ -2441,10 +2020,6 @@ document.getElementById('tabAffiliates').addEventListener('click', () => {
 
 document.getElementById('tabContractors').addEventListener('click', () => {
   switchToTab('tabContractors', 'viewContractors', renderContractorsTab);
-});
-
-document.getElementById('tabCryptoSnap').addEventListener('click', () => {
-  switchToTab('tabCryptoSnap', 'viewCryptoSnap', renderCryptoSnapTab);
 });
 
 // ============ FORECAST BY DAY VIEW ============
@@ -3273,6 +2848,57 @@ function updateCryptoSubtotals() {
   document.getElementById('cryptoSubtotalEmployee').innerHTML = `<span>Total Employee Wallets</span><span>$${employeeTotal.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</span>`;
 }
 
+// ============ LIVE CRYPTO PRICE CAROUSEL (top coins by market cap, CoinGecko public API) ============
+let cryptoPriceAutoScrollInterval = null;
+
+async function loadCryptoPrices() {
+  const container = document.getElementById('cryptoPriceCarousel');
+  const updatedAtEl = document.getElementById('cryptoPriceUpdatedAt');
+  try {
+    const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=15&page=1&sparkline=false&price_change_percentage=24h');
+    if (!res.ok) throw new Error('CoinGecko request failed: ' + res.status);
+    const coins = await res.json();
+
+    container.innerHTML = coins.map(c => {
+      const change = c.price_change_percentage_24h;
+      const changeCls = change >= 0 ? 'up' : 'down';
+      const changeText = change !== null && change !== undefined
+        ? `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`
+        : 'n/a';
+      const priceText = c.current_price >= 1
+        ? '$' + c.current_price.toLocaleString(undefined, {maximumFractionDigits: 2})
+        : '$' + c.current_price.toLocaleString(undefined, {maximumFractionDigits: 6});
+      return `<div class="crypto-price-tile">
+        <div class="cpt-symbol">${c.symbol}</div>
+        <div class="cpt-price">${priceText}</div>
+        <div class="cpt-change ${changeCls}">${changeText}</div>
+      </div>`;
+    }).join('');
+
+    updatedAtEl.textContent = 'Updated ' + new Date().toLocaleTimeString();
+    startCryptoPriceAutoScroll();
+  } catch (e) {
+    console.warn('Could not load live crypto prices:', e);
+    container.innerHTML = '<div style="color:#999; font-size:12px; padding:10px;">Could not load live prices right now — CoinGecko may be rate-limiting or unreachable. Try refreshing shortly.</div>';
+    updatedAtEl.textContent = '';
+  }
+}
+
+function startCryptoPriceAutoScroll() {
+  const container = document.getElementById('cryptoPriceCarousel');
+  if (cryptoPriceAutoScrollInterval) clearInterval(cryptoPriceAutoScrollInterval);
+  cryptoPriceAutoScrollInterval = setInterval(() => {
+    if (!container) return;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    if (maxScroll <= 0) return;
+    if (container.scrollLeft >= maxScroll - 5) {
+      container.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      container.scrollBy({ left: 130, behavior: 'smooth' });
+    }
+  }, 3000);
+}
+
 function renderCryptoCards() {
   const todayKey = toDateKey(TODAY);
   const latestKey = Object.keys(cryptoHistory).sort().filter(k => k <= todayKey).pop();
@@ -3494,6 +3120,7 @@ function renderCryptoTab() {
   renderCryptoCards();
   renderCryptoForm();
   renderCryptoHistory();
+  loadCryptoPrices();
 }
 
 
