@@ -1059,6 +1059,7 @@
     <option value="contractors">Contractors</option>
   </select>
   <input type="text" id="search" placeholder="Search vendor or invoice...">
+  <span class="reset-link" id="exportOutstandingLink">Export outstanding invoices (CSV)</span>
   <span class="reset-link" id="exportLink">Export paid list (CSV)</span>
   <span class="reset-link" id="bulkMarkPaidLink">Mark all before 01 May 2026 as paid</span>
   <span class="reset-link" id="resetLink">Reset all paid statuses</span>
@@ -1938,6 +1939,45 @@ document.getElementById('exportLink').addEventListener('click', () => {
   const a = document.createElement('a');
   a.href = url;
   a.download = 'known_settled_exclusions.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('exportOutstandingLink').addEventListener('click', () => {
+  const entFilter = document.getElementById('entityFilter').value;
+  const curFilter = document.getElementById('currencyFilter').value;
+  const catFilter = document.getElementById('categoryFilter').value;
+  const search = document.getElementById('search').value.toLowerCase();
+
+  let visible = RAW_DATA.filter(r => !paidSet.has(r.invoiceNo));
+  if (entFilter) visible = visible.filter(r => r.entity === entFilter);
+  if (curFilter) visible = visible.filter(r => r.currency === curFilter);
+  if (catFilter === 'affiliates') visible = visible.filter(r => findAffiliateMatch(r.vendor) !== null);
+  if (catFilter === 'contractors') visible = visible.filter(r => findContractorMatch(r.vendor) !== null);
+  if (search) visible = visible.filter(r =>
+    (r.vendor && r.vendor.toLowerCase().includes(search)) ||
+    (r.invoiceNo && r.invoiceNo.toLowerCase().includes(search))
+  );
+
+  visible.sort((a,b) => {
+    if (!a.dueDate) return 1;
+    if (!b.dueDate) return -1;
+    return new Date(a.dueDate) - new Date(b.dueDate);
+  });
+
+  const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  let csv = 'Entity,Vendor,InvoiceNo,TheirRef,DueDate,Currency,Amount,Description\n';
+  visible.forEach(r => {
+    csv += [esc(r.entity), esc(r.vendor), esc(r.invoiceNo), esc(r.theirRef), esc(r.dueDate), esc(r.currency), esc(r.amount), esc(r.description)].join(',') + '\n';
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `outstanding_invoices_${toDateKey(TODAY)}.csv`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
