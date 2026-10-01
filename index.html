@@ -3027,8 +3027,11 @@ function renderPSPCalendar() {
         cellDiv.appendChild(table);
       }
 
-      // accumulate brand totals for this week (only count days within this month for cleanliness)
-      if (!isOtherMonth) {
+      // accumulate brand totals for this week - include every day in the week,
+      // even if it falls in the adjacent month (otherwise boundary weeks that
+      // span two months would undercount, since the "other month" day's
+      // figures would be silently excluded from the Week Total).
+      {
         const entry = pspData[key] || {};
         weekBrandTotals.wow.in += (entry.worldpay || 0) + (entry.paycom || 0) + (entry.wow || 0);
         weekBrandTotals.wow.out += (entry.fundingWow || 0);
@@ -4092,10 +4095,10 @@ function renderCalendar() {
 
         cellDiv.addEventListener('click', () => openDayModal(key, items));
 
-        if (!isOtherMonth) {
-          weekTotal += total;
-          weekInvoiceCount += items.length;
-        }
+        // Always include every day in the week, even across a month boundary,
+        // so the Week Total doesn't silently drop days from the adjacent month.
+        weekTotal += total;
+        weekInvoiceCount += items.length;
       }
 
       const { balances: liveBalances } = getCurrentBalancesFromHistory();
