@@ -605,7 +605,7 @@
   #viewGameProviders .card { background: #000000; border: 1px solid #0ABAB5; box-shadow: 0 1px 6px rgba(10,186,181,0.15); }
   #viewGameProviders .card-label { color: #0ABAB5; }
   #viewGameProviders .card-value { color: #0ABAB5; }
-  #viewGameProviders select, #viewGameProviders input { border: 1px solid #0ABAB5; }
+  #viewGameProviders select, #viewGameProviders input:not(.gp-monthly-input) { border: 1px solid #0ABAB5; }
   .game-provider-company-badge {
     font-size: 10px;
     font-weight: bold;
@@ -651,6 +651,21 @@
   .gp-yearly-table th { color: #999; font-weight: bold; background: #0d0d0d; }
   .gp-yearly-table input { width: 70px; background: #1A1A1A; border: 1px solid #333; color: #EAEAEA; border-radius: 3px; padding: 2px 4px; font-size: 11px; text-align: right; }
   .gp-yearly-table .gp-total-col { font-weight: bold; color: #0ABAB5; }
+  .gp-yearly-table.gpc-mws input { border-color: #3B82F6; }
+  .gp-yearly-table.gpc-mws .gp-total-col { color: #3B82F6; }
+  .gp-yearly-table.gpc-mws th { color: #3B82F6; }
+  .gp-yearly-table.gpc-asobi input { border-color: #22C55E; }
+  .gp-yearly-table.gpc-asobi .gp-total-col { color: #22C55E; }
+  .gp-yearly-table.gpc-asobi th { color: #22C55E; }
+  .gp-yearly-table.gpc-metawin input { border-color: #A78BFA; }
+  .gp-yearly-table.gpc-metawin .gp-total-col { color: #A78BFA; }
+  .gp-yearly-table.gpc-metawin th { color: #A78BFA; }
+  .gp-yearly-table.gpc-zoom input { border-color: #F97316; }
+  .gp-yearly-table.gpc-zoom .gp-total-col { color: #F97316; }
+  .gp-yearly-table.gpc-zoom th { color: #F97316; }
+  .gp-reference-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .gp-reference-table th, .gp-reference-table td { padding: 7px 10px; text-align: left; border-bottom: 1px solid #1A1A1A; }
+  .gp-reference-table th { color: #999; font-weight: bold; background: #0d0d0d; font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px; }
   .crypto-entry-panel {
     background: #000000;
     border: 1px solid #3B82F6;
@@ -1924,7 +1939,8 @@ async function renderAffiliatesTab() {
 document.getElementById('affiliateBrandFilter').addEventListener('change', renderAffiliatesTable);
 document.getElementById('affiliateSearch').addEventListener('input', renderAffiliatesTable);
 
-let GAME_PROVIDERS_DATA = [{"name": "Gametech", "companies": ["MWS"], "id": "gp_seed_0", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Gametech", "companies": ["Asobi"], "id": "gp_seed_14", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Popiplay", "companies": ["MWS"], "id": "gp_seed_1", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "IGE", "companies": ["MWS"], "id": "gp_seed_2", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Revolver", "companies": ["MWS"], "id": "gp_seed_3", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Every Matrix", "companies": ["MWS"], "id": "gp_seed_4", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Digital Software", "companies": ["MWS"], "id": "gp_seed_5", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Softswiss", "companies": ["Asobi"], "id": "gp_seed_6", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Setinasky", "companies": ["Asobi"], "id": "gp_seed_8", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Tada", "companies": ["Asobi"], "id": "gp_seed_9", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Reevo", "companies": ["Asobi"], "id": "gp_seed_10", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Skywind", "companies": ["Asobi"], "id": "gp_seed_11", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Sportradar", "companies": ["Asobi"], "id": "gp_seed_12", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Pragmatic/AlliumTech Limited", "companies": ["Metawin"], "id": "gp_seed_13", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Digital Software", "companies": ["Zoom"], "id": "gp_seed_15", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Gaming Corps AB", "companies": ["MWS"], "id": "gp_seed_16", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}];
+let GAME_PROVIDERS_DATA = [{"name": "Gametech", "companies": ["MWS"], "id": "gp_seed_0", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi", "currency": "USD"}, {"name": "Gametech", "companies": ["Asobi"], "id": "gp_seed_14", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones", "currency": "USD"}, {"name": "Popiplay", "companies": ["MWS"], "id": "gp_seed_1", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi", "currency": "USD"}, {"name": "IGE", "companies": ["MWS"], "id": "gp_seed_2", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi", "currency": "USD"}, {"name": "Revolver", "companies": ["MWS"], "id": "gp_seed_3", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi", "currency": "USD"}, {"name": "Every Matrix", "companies": ["MWS"], "id": "gp_seed_4", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi", "currency": "USD"}, {"name": "Digital Software", "companies": ["MWS"], "id": "gp_seed_5", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi", "currency": "USD"}, {"name": "Softswiss", "companies": ["Asobi"], "id": "gp_seed_6", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones", "currency": "USD"}, {"name": "Setinasky", "companies": ["Asobi"], "id": "gp_seed_8", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones", "currency": "USD"}, {"name": "Tada", "companies": ["Asobi"], "id": "gp_seed_9", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones", "currency": "USD"}, {"name": "Reevo", "companies": ["Asobi"], "id": "gp_seed_10", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones", "currency": "USD"}, {"name": "Skywind", "companies": ["Asobi"], "id": "gp_seed_11", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones", "currency": "USD"}, {"name": "Sportradar", "companies": ["Asobi"], "id": "gp_seed_12", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones", "currency": "USD"}, {"name": "Pragmatic/AlliumTech Limited", "companies": ["Metawin"], "id": "gp_seed_13", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones", "currency": "USD"}, {"name": "Digital Software", "companies": ["Zoom"], "id": "gp_seed_15", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi", "currency": "USD"}, {"name": "Gaming Corps AB", "companies": ["MWS"], "id": "gp_seed_16", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi", "currency": "USD"}];
+
 
 
 
@@ -2031,6 +2047,7 @@ function openGameProviderEditModal(providerId) {
   html += `</div>`;
   html += `<div class="psp-form-row"><label>Reconciled By</label><input type="text" id="gpedit_reconciledBy" value="${(p.reconciledBy || '').replace(/"/g,'&quot;')}"></div>`;
   html += `<div class="psp-form-row"><label>Authorised By</label><input type="text" id="gpedit_authorisedBy" value="${(p.authorisedBy || '').replace(/"/g,'&quot;')}"></div>`;
+  html += `<div class="psp-form-row"><label>Currency</label><input type="text" id="gpedit_currency" value="${(p.currency || 'USD').replace(/"/g,'&quot;')}"></div>`;
   html += `<button class="cal-nav-btn" id="gameProviderSaveBtn" style="width:100%; margin-top:14px; background:#000; border-color:#0ABAB5; color:#0ABAB5;">Save</button>`;
   if (!isNew) {
     html += `<button class="cal-nav-btn" id="gameProviderDeleteBtn" style="width:100%; margin-top:8px; background:#000; border-color:#EF4444; color:#EF4444;">Delete Provider</button>`;
@@ -2045,6 +2062,7 @@ function openGameProviderEditModal(providerId) {
     updated.companies = selectedCompanies;
     updated.reconciledBy = document.getElementById('gpedit_reconciledBy').value;
     updated.authorisedBy = document.getElementById('gpedit_authorisedBy').value;
+    updated.currency = document.getElementById('gpedit_currency').value;
 
     await saveGameProviderToBridge(updated);
     await loadGameProvidersFromBridge();
@@ -2128,8 +2146,8 @@ function renderGameProvidersTable() {
     body.className = 'gp-company-body';
 
     const table = document.createElement('table');
-    table.className = 'gp-yearly-table';
-    table.innerHTML = '<thead><tr><th>Provider Name</th><th>Company</th><th>Reconciled By</th><th>Authorised By</th><th>Actions</th></tr></thead>';
+    table.className = 'gp-reference-table';
+    table.innerHTML = '<thead><tr><th>Provider Name</th><th>Company</th><th>Currency</th><th>Reconciled By</th><th>Authorised By</th><th>Actions</th></tr></thead>';
 
     const tbody = document.createElement('tbody');
     providers.forEach(p => {
@@ -2138,6 +2156,7 @@ function renderGameProvidersTable() {
       tr.innerHTML = `
         <td style="text-align:left;">${p.name}</td>
         <td style="text-align:left;">${companyBadges}</td>
+        <td style="text-align:left;">${p.currency || 'USD'}</td>
         <td style="text-align:left;">${p.reconciledBy || '<span style="color:#666;">—</span>'}</td>
         <td style="text-align:left;">${p.authorisedBy || '<span style="color:#666;">—</span>'}</td>
         <td style="text-align:left;"><button class="status-btn" style="background:#000; border:1px solid #0ABAB5; color:#0ABAB5;">Edit</button></td>
@@ -2200,7 +2219,7 @@ function renderGameProviderYearly() {
     body.className = 'gp-company-body';
 
     const table = document.createElement('table');
-    table.className = 'gp-yearly-table';
+    table.className = 'gp-yearly-table ' + companyBadgeClass(company);
     let headHtml = '<thead><tr><th>Provider</th>';
     GP_MONTH_LABELS.forEach(m => { headHtml += `<th>${m}</th>`; });
     headHtml += '<th class="gp-total-col">Total</th></tr></thead>';
@@ -2209,7 +2228,7 @@ function renderGameProviderYearly() {
     const tbody = document.createElement('tbody');
     providers.forEach(p => {
       const tr = document.createElement('tr');
-      let rowHtml = `<td>${p.name}</td>`;
+      let rowHtml = `<td>${p.name} <span style="color:#666; font-size:9px;">(${p.currency || 'USD'})</span></td>`;
       let rowTotal = 0;
       for (let m = 1; m <= 12; m++) {
         const monthKey = gameProviderCurrentYear + '-' + String(m).padStart(2, '0');
