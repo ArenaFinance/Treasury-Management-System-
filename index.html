@@ -607,16 +607,50 @@
   #viewGameProviders .card-value { color: #0ABAB5; }
   #viewGameProviders select, #viewGameProviders input { border: 1px solid #0ABAB5; }
   .game-provider-company-badge {
-    background: #0ABAB522;
-    color: #0ABAB5;
-    border: 1px solid #0ABAB5;
     font-size: 10px;
     font-weight: bold;
     border-radius: 3px;
     padding: 2px 6px;
     margin-right: 4px;
     display: inline-block;
+    border: 1px solid;
   }
+  .gpc-mws { background: #3B82F622; color: #3B82F6; border-color: #3B82F6; }
+  .gpc-asobi { background: #22C55E22; color: #22C55E; border-color: #22C55E; }
+  .gpc-metawin { background: #A78BFA22; color: #A78BFA; border-color: #A78BFA; }
+  .gpc-zoom { background: #F9731622; color: #F97316; border-color: #F97316; }
+  .gpc-default { background: #99999922; color: #999; border-color: #999; }
+  .gp-company-section {
+    margin-bottom: 16px;
+    border: 1px solid #2A2A2A;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .gp-company-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #0d0d0d;
+    cursor: pointer;
+    user-select: none;
+    font-weight: bold;
+    font-size: 13px;
+  }
+  .gp-company-header .gp-toggle {
+    font-size: 11px;
+    transition: transform 0.15s;
+    display: inline-block;
+  }
+  .gp-company-header .gp-toggle.open { transform: rotate(90deg); }
+  .gp-company-body { display: none; }
+  .gp-company-body.open { display: block; }
+  .gp-yearly-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .gp-yearly-table th, .gp-yearly-table td { padding: 5px 7px; text-align: right; border-bottom: 1px solid #1A1A1A; white-space: nowrap; }
+  .gp-yearly-table th:first-child, .gp-yearly-table td:first-child { text-align: left; }
+  .gp-yearly-table th { color: #999; font-weight: bold; background: #0d0d0d; }
+  .gp-yearly-table input { width: 70px; background: #1A1A1A; border: 1px solid #333; color: #EAEAEA; border-radius: 3px; padding: 2px 4px; font-size: 11px; text-align: right; }
+  .gp-yearly-table .gp-total-col { font-weight: bold; color: #0ABAB5; }
   .crypto-entry-panel {
     background: #000000;
     border: 1px solid #3B82F6;
@@ -1134,27 +1168,13 @@
     <input type="text" id="gameProviderSearch" placeholder="Search provider name...">
     <button class="cal-nav-btn" id="addGameProviderBtn" style="background:#000; border-color:#0ABAB5; color:#0ABAB5;">+ Add Provider</button>
   </div>
-  <div class="table-wrap" style="margin-bottom:28px;">
-    <table>
-      <thead>
-        <tr><th>Provider Name</th><th>Company</th><th>Actions</th></tr>
-      </thead>
-      <tbody id="gameProvidersBody"></tbody>
-    </table>
-  </div>
+  <div id="gameProvidersListContainer" style="margin-bottom:28px;"></div>
 
-  <div style="color:#0ABAB5; font-size:13px; font-weight:bold; margin-bottom:10px; border-top:1px solid #2A2A2A; padding-top:20px;">Monthly Amount Tracker</div>
+  <div style="color:#0ABAB5; font-size:13px; font-weight:bold; margin-bottom:10px; border-top:1px solid #2A2A2A; padding-top:20px;">Yearly Amount Tracker</div>
   <div class="controls">
-    <select id="gameProviderMonthSelect"></select>
+    <select id="gameProviderYearSelect"></select>
   </div>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Provider</th><th>Company</th><th>Amount (USD)</th></tr>
-      </thead>
-      <tbody id="gameProviderMonthlyBody"></tbody>
-    </table>
-  </div>
+  <div id="gameProviderYearlyContainer"></div>
 </div>
 
 <!-- Game provider edit/add modal -->
@@ -1904,13 +1924,16 @@ async function renderAffiliatesTab() {
 document.getElementById('affiliateBrandFilter').addEventListener('change', renderAffiliatesTable);
 document.getElementById('affiliateSearch').addEventListener('input', renderAffiliatesTable);
 
-let GAME_PROVIDERS_DATA = [{"name": "Gametech (MWS)", "companies": ["MWS"], "id": "gp_seed_0"}, {"name": "Popiplay", "companies": ["MWS"], "id": "gp_seed_1"}, {"name": "IGE", "companies": ["MWS"], "id": "gp_seed_2"}, {"name": "Revolver", "companies": ["MWS"], "id": "gp_seed_3"}, {"name": "Every Matrix", "companies": ["MWS"], "id": "gp_seed_4"}, {"name": "Digital Software", "companies": ["MWS"], "id": "gp_seed_5"}, {"name": "Softswiss", "companies": ["Asobi"], "id": "gp_seed_6"}, {"name": "Gametech (Asobi)", "companies": ["Asobi"], "id": "gp_seed_7"}, {"name": "Setinasky", "companies": ["Asobi"], "id": "gp_seed_8"}, {"name": "Tada", "companies": ["Asobi"], "id": "gp_seed_9"}, {"name": "Reevo", "companies": ["Asobi"], "id": "gp_seed_10"}, {"name": "Skywind", "companies": ["Asobi"], "id": "gp_seed_11"}, {"name": "Sportradar", "companies": ["Asobi"], "id": "gp_seed_12"}, {"name": "Pragmatic/AlliumTech Limited", "companies": ["Metawin"], "id": "gp_seed_13"}];
+let GAME_PROVIDERS_DATA = [{"name": "Gametech", "companies": ["MWS"], "id": "gp_seed_0", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Gametech", "companies": ["Asobi"], "id": "gp_seed_14", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Popiplay", "companies": ["MWS"], "id": "gp_seed_1", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "IGE", "companies": ["MWS"], "id": "gp_seed_2", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Revolver", "companies": ["MWS"], "id": "gp_seed_3", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Every Matrix", "companies": ["MWS"], "id": "gp_seed_4", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Digital Software", "companies": ["MWS"], "id": "gp_seed_5", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Softswiss", "companies": ["Asobi"], "id": "gp_seed_6", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Setinasky", "companies": ["Asobi"], "id": "gp_seed_8", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Tada", "companies": ["Asobi"], "id": "gp_seed_9", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Reevo", "companies": ["Asobi"], "id": "gp_seed_10", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Skywind", "companies": ["Asobi"], "id": "gp_seed_11", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Sportradar", "companies": ["Asobi"], "id": "gp_seed_12", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Pragmatic/AlliumTech Limited", "companies": ["Metawin"], "id": "gp_seed_13", "reconciledBy": "Edjon Andal", "authorisedBy": "Stu Jones"}, {"name": "Digital Software", "companies": ["Zoom"], "id": "gp_seed_15", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}, {"name": "Gaming Corps AB", "companies": ["MWS"], "id": "gp_seed_16", "reconciledBy": "Victor Monclus", "authorisedBy": "Chelsey Brahimi"}];
+
+
+
+
 
 // ============ GAME PROVIDERS TAB ============
 let gameProvidersLoadedFromBridge = false;
 let gameProviderMonthlyData = {};
 let gameProviderMonthlyLoaded = false;
-let gameProviderCurrentMonth = null; // set lazily on first use, once TODAY is available
 
 async function loadGameProvidersFromBridge() {
   try {
@@ -1977,7 +2000,16 @@ async function saveGameProviderMonthlyToBridge(key, rowData) {
   }
 }
 
-const ALL_PROVIDER_COMPANIES = ['MWS', 'Asobi', 'Metawin'];
+const ALL_PROVIDER_COMPANIES = ['MWS', 'Asobi', 'Metawin', 'Zoom'];
+
+function companyBadgeClass(company) {
+  const c = (company || '').toLowerCase();
+  if (c === 'mws') return 'gpc-mws';
+  if (c === 'asobi') return 'gpc-asobi';
+  if (c === 'metawin') return 'gpc-metawin';
+  if (c === 'zoom') return 'gpc-zoom';
+  return 'gpc-default';
+}
 
 function openGameProviderEditModal(providerId) {
   const modal = document.getElementById('gameProviderEditModal');
@@ -1997,6 +2029,8 @@ function openGameProviderEditModal(providerId) {
     html += `<label style="display:flex; align-items:center; gap:6px; font-size:12px; margin-bottom:4px;"><input type="checkbox" class="gpedit_company" value="${c}" ${checked}> ${c}</label>`;
   });
   html += `</div>`;
+  html += `<div class="psp-form-row"><label>Reconciled By</label><input type="text" id="gpedit_reconciledBy" value="${(p.reconciledBy || '').replace(/"/g,'&quot;')}"></div>`;
+  html += `<div class="psp-form-row"><label>Authorised By</label><input type="text" id="gpedit_authorisedBy" value="${(p.authorisedBy || '').replace(/"/g,'&quot;')}"></div>`;
   html += `<button class="cal-nav-btn" id="gameProviderSaveBtn" style="width:100%; margin-top:14px; background:#000; border-color:#0ABAB5; color:#0ABAB5;">Save</button>`;
   if (!isNew) {
     html += `<button class="cal-nav-btn" id="gameProviderDeleteBtn" style="width:100%; margin-top:8px; background:#000; border-color:#EF4444; color:#EF4444;">Delete Provider</button>`;
@@ -2009,6 +2043,8 @@ function openGameProviderEditModal(providerId) {
     const updated = isNew ? {} : Object.assign({}, p);
     updated.name = document.getElementById('gpedit_name').value;
     updated.companies = selectedCompanies;
+    updated.reconciledBy = document.getElementById('gpedit_reconciledBy').value;
+    updated.authorisedBy = document.getElementById('gpedit_authorisedBy').value;
 
     await saveGameProviderToBridge(updated);
     await loadGameProvidersFromBridge();
@@ -2016,7 +2052,7 @@ function openGameProviderEditModal(providerId) {
     populateGameProviderCompanyFilter();
     renderGameProvidersTable();
     renderGameProvidersCards();
-    renderGameProviderMonthlyTable();
+    renderGameProviderYearly();
   });
 
   if (!isNew) {
@@ -2027,7 +2063,7 @@ function openGameProviderEditModal(providerId) {
       modal.style.display = 'none';
       renderGameProvidersTable();
       renderGameProvidersCards();
-      renderGameProviderMonthlyTable();
+      renderGameProviderYearly();
     });
   }
 
@@ -2070,83 +2106,159 @@ function renderGameProvidersTable() {
   if (companyFilter) visible = visible.filter(p => p.companies.includes(companyFilter));
   if (search) visible = visible.filter(p => p.name.toLowerCase().includes(search));
 
-  visible = [...visible].sort((a,b) => a.name.localeCompare(b.name));
+  const container = document.getElementById('gameProvidersListContainer');
+  container.innerHTML = '';
 
-  const tbody = document.getElementById('gameProvidersBody');
-  tbody.innerHTML = '';
-  visible.forEach(p => {
-    const companyBadges = p.companies.map(c => `<span class="game-provider-company-badge">${c}</span>`).join(' ');
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${p.name}</td>
-      <td>${companyBadges}</td>
-      <td><button class="status-btn" style="background:#000; border:1px solid #0ABAB5; color:#0ABAB5;">Edit</button></td>
-    `;
-    tr.querySelector('button').addEventListener('click', () => openGameProviderEditModal(p.id));
-    tbody.appendChild(tr);
+  const companiesToShow = companyFilter ? [companyFilter] : ALL_PROVIDER_COMPANIES;
+  let anyShown = false;
+
+  companiesToShow.forEach(company => {
+    const providers = visible.filter(p => p.companies.includes(company)).sort((a,b) => a.name.localeCompare(b.name));
+    if (providers.length === 0) return;
+    anyShown = true;
+
+    const section = document.createElement('div');
+    section.className = 'gp-company-section';
+
+    const header = document.createElement('div');
+    header.className = 'gp-company-header';
+    header.innerHTML = `<span class="gp-toggle">&#9654;</span> <span class="game-provider-company-badge ${companyBadgeClass(company)}">${company}</span> <span style="color:#999; font-weight:normal; font-size:11px;">(${providers.length} provider${providers.length !== 1 ? 's' : ''})</span>`;
+
+    const body = document.createElement('div');
+    body.className = 'gp-company-body';
+
+    const table = document.createElement('table');
+    table.className = 'gp-yearly-table';
+    table.innerHTML = '<thead><tr><th>Provider Name</th><th>Company</th><th>Reconciled By</th><th>Authorised By</th><th>Actions</th></tr></thead>';
+
+    const tbody = document.createElement('tbody');
+    providers.forEach(p => {
+      const companyBadges = p.companies.map(c => `<span class="game-provider-company-badge ${companyBadgeClass(c)}">${c}</span>`).join(' ');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="text-align:left;">${p.name}</td>
+        <td style="text-align:left;">${companyBadges}</td>
+        <td style="text-align:left;">${p.reconciledBy || '<span style="color:#666;">—</span>'}</td>
+        <td style="text-align:left;">${p.authorisedBy || '<span style="color:#666;">—</span>'}</td>
+        <td style="text-align:left;"><button class="status-btn" style="background:#000; border:1px solid #0ABAB5; color:#0ABAB5;">Edit</button></td>
+      `;
+      tr.querySelector('button').addEventListener('click', () => openGameProviderEditModal(p.id));
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    body.appendChild(table);
+
+    header.addEventListener('click', () => {
+      body.classList.toggle('open');
+      header.querySelector('.gp-toggle').classList.toggle('open');
+    });
+
+    section.appendChild(header);
+    section.appendChild(body);
+    container.appendChild(section);
   });
 
-  if (visible.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999; padding:20px;">No providers match.</td></tr>';
+  if (!anyShown) {
+    container.innerHTML = '<div style="text-align:center; color:#999; padding:20px;">No providers match.</div>';
   }
 }
 
-function populateGameProviderMonthSelect() {
-  if (gameProviderCurrentMonth === null) {
-    gameProviderCurrentMonth = toDateKey(TODAY).slice(0, 7);
+let gameProviderCurrentYear = null;
+const GP_MONTH_LABELS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function populateGameProviderYearSelect() {
+  if (gameProviderCurrentYear === null) {
+    gameProviderCurrentYear = TODAY.getFullYear();
   }
-  const sel = document.getElementById('gameProviderMonthSelect');
+  const sel = document.getElementById('gameProviderYearSelect');
   if (sel.options.length > 0) return;
-  const months = [];
-  const base = new Date(TODAY.getFullYear(), TODAY.getMonth(), 1);
-  for (let i = -11; i <= 1; i++) {
-    const d = new Date(base.getFullYear(), base.getMonth() + i, 1);
-    const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
-    const label = d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
-    months.push([key, label]);
-  }
-  months.forEach(([key, label]) => {
+  const thisYear = TODAY.getFullYear();
+  for (let y = thisYear - 3; y <= thisYear + 1; y++) {
     const opt = document.createElement('option');
-    opt.value = key; opt.textContent = label;
-    if (key === gameProviderCurrentMonth) opt.selected = true;
+    opt.value = y; opt.textContent = y;
+    if (y === gameProviderCurrentYear) opt.selected = true;
     sel.appendChild(opt);
-  });
+  }
 }
 
-function renderGameProviderMonthlyTable() {
-  const tbody = document.getElementById('gameProviderMonthlyBody');
-  tbody.innerHTML = '';
+function renderGameProviderYearly() {
+  const container = document.getElementById('gameProviderYearlyContainer');
+  container.innerHTML = '';
 
-  const sorted = [...GAME_PROVIDERS_DATA].sort((a,b) => a.name.localeCompare(b.name));
-  sorted.forEach(p => {
-    const key = p.id + '|' + gameProviderCurrentMonth;
-    const existing = gameProviderMonthlyData[key];
-    const amountVal = existing && existing.Amount !== undefined && existing.Amount !== '' ? existing.Amount : '';
-    const companyBadges = p.companies.map(c => `<span class="game-provider-company-badge">${c}</span>`).join(' ');
+  ALL_PROVIDER_COMPANIES.forEach(company => {
+    const providers = GAME_PROVIDERS_DATA.filter(p => p.companies.includes(company)).sort((a,b) => a.name.localeCompare(b.name));
+    if (providers.length === 0) return;
 
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${p.name}</td>
-      <td>${companyBadges}</td>
-      <td><input type="number" step="0.01" class="gp-monthly-input" data-provider-id="${p.id}" value="${amountVal}" style="width:120px;"></td>
-    `;
-    tbody.appendChild(tr);
+    const section = document.createElement('div');
+    section.className = 'gp-company-section';
+
+    const header = document.createElement('div');
+    header.className = 'gp-company-header';
+    header.innerHTML = `<span class="gp-toggle">&#9654;</span> <span class="game-provider-company-badge ${companyBadgeClass(company)}">${company}</span> <span style="color:#999; font-weight:normal; font-size:11px;">(${providers.length} provider${providers.length !== 1 ? 's' : ''})</span>`;
+
+    const body = document.createElement('div');
+    body.className = 'gp-company-body';
+
+    const table = document.createElement('table');
+    table.className = 'gp-yearly-table';
+    let headHtml = '<thead><tr><th>Provider</th>';
+    GP_MONTH_LABELS.forEach(m => { headHtml += `<th>${m}</th>`; });
+    headHtml += '<th class="gp-total-col">Total</th></tr></thead>';
+    table.innerHTML = headHtml;
+
+    const tbody = document.createElement('tbody');
+    providers.forEach(p => {
+      const tr = document.createElement('tr');
+      let rowHtml = `<td>${p.name}</td>`;
+      let rowTotal = 0;
+      for (let m = 1; m <= 12; m++) {
+        const monthKey = gameProviderCurrentYear + '-' + String(m).padStart(2, '0');
+        const key = p.id + '|' + monthKey;
+        const existing = gameProviderMonthlyData[key];
+        const amountVal = existing && existing.Amount !== undefined && existing.Amount !== '' ? existing.Amount : '';
+        if (amountVal !== '') rowTotal += parseFloat(amountVal);
+        rowHtml += `<td><input type="number" step="0.01" class="gp-monthly-input" data-provider-id="${p.id}" data-month="${monthKey}" value="${amountVal}"></td>`;
+      }
+      rowHtml += `<td class="gp-total-col" id="gp-total-${p.id}">${rowTotal.toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+      tr.innerHTML = rowHtml;
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    body.appendChild(table);
+
+    header.addEventListener('click', () => {
+      body.classList.toggle('open');
+      header.querySelector('.gp-toggle').classList.toggle('open');
+    });
+
+    section.appendChild(header);
+    section.appendChild(body);
+    container.appendChild(section);
   });
 
   document.querySelectorAll('.gp-monthly-input').forEach(input => {
     input.addEventListener('change', async (e) => {
       const providerId = e.target.getAttribute('data-provider-id');
-      const key = providerId + '|' + gameProviderCurrentMonth;
+      const monthKey = e.target.getAttribute('data-month');
+      const key = providerId + '|' + monthKey;
       const amount = e.target.value === '' ? '' : parseFloat(e.target.value);
-      gameProviderMonthlyData[key] = { ProviderId: providerId, Month: gameProviderCurrentMonth, Amount: amount };
-      await saveGameProviderMonthlyToBridge(key, { ProviderId: providerId, Month: gameProviderCurrentMonth, Amount: amount });
+      gameProviderMonthlyData[key] = { ProviderId: providerId, Month: monthKey, Amount: amount };
+      await saveGameProviderMonthlyToBridge(key, { ProviderId: providerId, Month: monthKey, Amount: amount });
+
+      // recompute that row's total
+      const row = e.target.closest('tr');
+      let total = 0;
+      row.querySelectorAll('.gp-monthly-input').forEach(i => {
+        if (i.value !== '') total += parseFloat(i.value);
+      });
+      document.getElementById('gp-total-' + providerId).textContent = total.toLocaleString(undefined,{maximumFractionDigits:0});
     });
   });
 }
 
-document.getElementById('gameProviderMonthSelect').addEventListener('change', (e) => {
-  gameProviderCurrentMonth = e.target.value;
-  renderGameProviderMonthlyTable();
+document.getElementById('gameProviderYearSelect').addEventListener('change', (e) => {
+  gameProviderCurrentYear = parseInt(e.target.value);
+  renderGameProviderYearly();
 });
 
 async function renderGameProvidersTab() {
@@ -2157,10 +2269,10 @@ async function renderGameProvidersTab() {
     await loadGameProviderMonthlyFromBridge();
   }
   populateGameProviderCompanyFilter();
-  populateGameProviderMonthSelect();
+  populateGameProviderYearSelect();
   renderGameProvidersCards();
   renderGameProvidersTable();
-  renderGameProviderMonthlyTable();
+  renderGameProviderYearly();
 }
 
 document.getElementById('gameProviderCompanyFilter').addEventListener('change', renderGameProvidersTable);
