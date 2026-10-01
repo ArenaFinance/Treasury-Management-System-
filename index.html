@@ -2192,7 +2192,8 @@ function populateGameProviderYearSelect() {
   const sel = document.getElementById('gameProviderYearSelect');
   if (sel.options.length > 0) return;
   const thisYear = TODAY.getFullYear();
-  for (let y = thisYear - 3; y <= thisYear + 1; y++) {
+  const startYear = Math.max(2026, thisYear - 3);
+  for (let y = startYear; y <= thisYear + 1; y++) {
     const opt = document.createElement('option');
     opt.value = y; opt.textContent = y;
     if (y === gameProviderCurrentYear) opt.selected = true;
@@ -2236,7 +2237,8 @@ function renderGameProviderYearly() {
         const existing = gameProviderMonthlyData[key];
         const amountVal = existing && existing.Amount !== undefined && existing.Amount !== '' ? existing.Amount : '';
         if (amountVal !== '') rowTotal += parseFloat(amountVal);
-        rowHtml += `<td><input type="number" step="0.01" class="gp-monthly-input" data-provider-id="${p.id}" data-month="${monthKey}" value="${amountVal}"></td>`;
+        const displayVal = amountVal !== '' ? parseFloat(amountVal).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2}) : '';
+        rowHtml += `<td><input type="text" inputmode="decimal" class="gp-monthly-input" data-provider-id="${p.id}" data-month="${monthKey}" data-raw="${amountVal}" value="${displayVal}"></td>`;
       }
       rowHtml += `<td class="gp-total-col" id="gp-total-${p.id}">${rowTotal.toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
       tr.innerHTML = rowHtml;
@@ -2256,19 +2258,35 @@ function renderGameProviderYearly() {
   });
 
   document.querySelectorAll('.gp-monthly-input').forEach(input => {
-    input.addEventListener('change', async (e) => {
+    // On focus, swap to the raw unformatted number so it's easy to edit
+    input.addEventListener('focus', (e) => {
+      const raw = e.target.getAttribute('data-raw');
+      e.target.value = raw || '';
+      e.target.select();
+    });
+
+    // On blur, parse, save, and reformat with comma separators for readability
+    input.addEventListener('blur', async (e) => {
       const providerId = e.target.getAttribute('data-provider-id');
       const monthKey = e.target.getAttribute('data-month');
       const key = providerId + '|' + monthKey;
-      const amount = e.target.value === '' ? '' : parseFloat(e.target.value);
-      gameProviderMonthlyData[key] = { ProviderId: providerId, Month: monthKey, Amount: amount };
-      await saveGameProviderMonthlyToBridge(key, { ProviderId: providerId, Month: monthKey, Amount: amount });
 
-      // recompute that row's total
+      const cleaned = e.target.value.replace(/,/g, '').trim();
+      const amount = cleaned === '' ? '' : parseFloat(cleaned);
+      const validAmount = (amount === '' || isNaN(amount)) ? '' : amount;
+
+      e.target.setAttribute('data-raw', validAmount);
+      e.target.value = validAmount !== '' ? validAmount.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2}) : '';
+
+      gameProviderMonthlyData[key] = { ProviderId: providerId, Month: monthKey, Amount: validAmount };
+      await saveGameProviderMonthlyToBridge(key, { ProviderId: providerId, Month: monthKey, Amount: validAmount });
+
+      // recompute that row's total using the raw stored values, not the formatted display text
       const row = e.target.closest('tr');
       let total = 0;
       row.querySelectorAll('.gp-monthly-input').forEach(i => {
-        if (i.value !== '') total += parseFloat(i.value);
+        const r = i.getAttribute('data-raw');
+        if (r !== '' && r !== null) total += parseFloat(r);
       });
       document.getElementById('gp-total-' + providerId).textContent = total.toLocaleString(undefined,{maximumFractionDigits:0});
     });
