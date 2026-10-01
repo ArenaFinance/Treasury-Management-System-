@@ -135,6 +135,7 @@
   .brand-badge-rolla { background: #EF444422; color: #EF4444; border-color: #EF4444; }
   .brand-badge-coinsback { background: #EAB30822; color: #EAB308; border-color: #EAB308; }
   .brand-badge-roovegas { background: #22C55E22; color: #22C55E; border-color: #22C55E; }
+  .brand-badge-metawin { background: #F5F5F522; color: #F5F5F5; border-color: #F5F5F5; }
   .brand-badge-default { background: #99999922; color: #999; border-color: #999; }
   .brand-dot {
     display: inline-block;
@@ -148,6 +149,7 @@
   .brand-dot.brand-badge-rolla { background: #EF4444; }
   .brand-dot.brand-badge-coinsback { background: #EAB308; }
   .brand-dot.brand-badge-roovegas { background: #22C55E; }
+  .brand-dot.brand-badge-metawin { background: #F5F5F5; }
   .brand-dot.brand-badge-default { background: #999; }
   .contractor-badge {
     background: #22C55E;
@@ -1648,6 +1650,7 @@ function brandBadgeClass(brand) {
   if (b.includes('rolla')) return 'brand-badge-rolla';
   if (b.includes('coinsback') || b.includes('coins back')) return 'brand-badge-coinsback';
   if (b.includes('roo')) return 'brand-badge-roovegas';
+  if (b.includes('metawin')) return 'brand-badge-metawin';
   return 'brand-badge-default';
 }
 
@@ -1729,7 +1732,7 @@ async function deleteAffiliateFromBridge(id) {
   }
 }
 
-const ALL_AFFILIATE_BRANDS = ['WOW Vegas', 'Rolla', 'CoinsBack', 'RooVegas'];
+const ALL_AFFILIATE_BRANDS = ['WOW Vegas', 'Rolla', 'CoinsBack', 'RooVegas', 'Metawin'];
 
 function openAffiliateEditModal(affiliateId) {
   const modal = document.getElementById('affiliateEditModal');
