@@ -191,6 +191,7 @@
   .tab-btn:hover { color: #FFA733; }
   #tabContractors.active { color: #06B6D4 !important; border-bottom: 3px solid #06B6D4; }
   #tabAffiliates.active { color: #EC4899 !important; border-bottom: 3px solid #EC4899; }
+  #tabGameProviders.active { color: #0ABAB5 !important; border-bottom: 3px solid #0ABAB5; }
   #tabBalances.active { color: #A78BFA !important; border-bottom: 3px solid #A78BFA; }
   #tabPSP.active { color: #F5F5F5 !important; border-bottom: 3px solid #F5F5F5; }
   #tabCrypto.active { color: #3B82F6 !important; border-bottom: 3px solid #3B82F6; }
@@ -601,6 +602,21 @@
   #viewAffiliates .card { background: #000000; border: 1px solid #EC4899; box-shadow: 0 1px 6px rgba(236,72,153,0.15); }
   #viewAffiliates .card-label { color: #EC4899; }
   #viewAffiliates .card-value { color: #EC4899; }
+  #viewGameProviders .card { background: #000000; border: 1px solid #0ABAB5; box-shadow: 0 1px 6px rgba(10,186,181,0.15); }
+  #viewGameProviders .card-label { color: #0ABAB5; }
+  #viewGameProviders .card-value { color: #0ABAB5; }
+  #viewGameProviders select, #viewGameProviders input { border: 1px solid #0ABAB5; }
+  .game-provider-company-badge {
+    background: #0ABAB522;
+    color: #0ABAB5;
+    border: 1px solid #0ABAB5;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 3px;
+    padding: 2px 6px;
+    margin-right: 4px;
+    display: inline-block;
+  }
   .crypto-entry-panel {
     background: #000000;
     border: 1px solid #3B82F6;
@@ -1046,6 +1062,7 @@
   <button class="tab-btn" id="tabForecast" style="color:#22C55E;">Forecast by Day</button>
   <button class="tab-btn" id="tabContractors" style="color:#06B6D4;">Contractor Terms</button>
   <button class="tab-btn" id="tabAffiliates" style="color:#EC4899;">Affiliate Terms</button>
+  <button class="tab-btn" id="tabGameProviders" style="color:#0ABAB5;">Game Providers</button>
   <button class="tab-btn" id="tabLiveTest" style="color:#F87171;">Live Data (Test)</button>
 </div>
 
@@ -1106,6 +1123,48 @@
       <span class="day-modal-close" id="affiliateEditModalClose">&times;</span>
     </div>
     <div id="affiliateEditModalBody"></div>
+  </div>
+</div>
+
+<div id="viewGameProviders" style="display:none;">
+  <div style="color:#0ABAB5; font-size:11px; font-weight:bold; margin-bottom:10px;">Game providers &mdash; which company they invoice through, plus a manual monthly amount tracker below.</div>
+  <div class="cards" id="gameProvidersCards"></div>
+  <div class="controls">
+    <select id="gameProviderCompanyFilter"><option value="">All Companies</option></select>
+    <input type="text" id="gameProviderSearch" placeholder="Search provider name...">
+    <button class="cal-nav-btn" id="addGameProviderBtn" style="background:#000; border-color:#0ABAB5; color:#0ABAB5;">+ Add Provider</button>
+  </div>
+  <div class="table-wrap" style="margin-bottom:28px;">
+    <table>
+      <thead>
+        <tr><th>Provider Name</th><th>Company</th><th>Actions</th></tr>
+      </thead>
+      <tbody id="gameProvidersBody"></tbody>
+    </table>
+  </div>
+
+  <div style="color:#0ABAB5; font-size:13px; font-weight:bold; margin-bottom:10px; border-top:1px solid #2A2A2A; padding-top:20px;">Monthly Amount Tracker</div>
+  <div class="controls">
+    <select id="gameProviderMonthSelect"></select>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Provider</th><th>Company</th><th>Amount (USD)</th></tr>
+      </thead>
+      <tbody id="gameProviderMonthlyBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Game provider edit/add modal -->
+<div id="gameProviderEditModal" class="day-modal-overlay" style="display:none;">
+  <div class="day-modal">
+    <div class="day-modal-header">
+      <span id="gameProviderEditModalTitle">Edit Provider</span>
+      <span class="day-modal-close" id="gameProviderEditModalClose">&times;</span>
+    </div>
+    <div id="gameProviderEditModalBody"></div>
   </div>
 </div>
 
@@ -1845,6 +1904,266 @@ async function renderAffiliatesTab() {
 document.getElementById('affiliateBrandFilter').addEventListener('change', renderAffiliatesTable);
 document.getElementById('affiliateSearch').addEventListener('input', renderAffiliatesTable);
 
+let GAME_PROVIDERS_DATA = [{"name": "Gametech (MWS)", "companies": ["MWS"], "id": "gp_seed_0"}, {"name": "Popiplay", "companies": ["MWS"], "id": "gp_seed_1"}, {"name": "IGE", "companies": ["MWS"], "id": "gp_seed_2"}, {"name": "Revolver", "companies": ["MWS"], "id": "gp_seed_3"}, {"name": "Every Matrix", "companies": ["MWS"], "id": "gp_seed_4"}, {"name": "Digital Software", "companies": ["MWS"], "id": "gp_seed_5"}, {"name": "Softswiss", "companies": ["Asobi"], "id": "gp_seed_6"}, {"name": "Gametech (Asobi)", "companies": ["Asobi"], "id": "gp_seed_7"}, {"name": "Setinasky", "companies": ["Asobi"], "id": "gp_seed_8"}, {"name": "Tada", "companies": ["Asobi"], "id": "gp_seed_9"}, {"name": "Reevo", "companies": ["Asobi"], "id": "gp_seed_10"}, {"name": "Skywind", "companies": ["Asobi"], "id": "gp_seed_11"}, {"name": "Sportradar", "companies": ["Asobi"], "id": "gp_seed_12"}, {"name": "Pragmatic/AlliumTech Limited", "companies": ["Metawin"], "id": "gp_seed_13"}];
+
+// ============ GAME PROVIDERS TAB ============
+let gameProvidersLoadedFromBridge = false;
+let gameProviderMonthlyData = {};
+let gameProviderMonthlyLoaded = false;
+let gameProviderCurrentMonth = toDateKey(TODAY).slice(0, 7);
+
+async function loadGameProvidersFromBridge() {
+  try {
+    const res = await fetch(`${BRIDGE_URL}?action=getGameProviders`);
+    const json = await res.json();
+    if (json.success && json.data.length > 0) {
+      GAME_PROVIDERS_DATA = json.data;
+      console.log(`Loaded ${GAME_PROVIDERS_DATA.length} game providers from Sheet.`);
+    }
+  } catch (e) {
+    console.warn('Could not reach bridge for game providers.', e);
+  }
+  gameProvidersLoadedFromBridge = true;
+}
+
+async function loadGameProviderMonthlyFromBridge() {
+  try {
+    const res = await fetch(`${BRIDGE_URL}?action=getGameProviderMonthly`);
+    const json = await res.json();
+    if (json.success) {
+      gameProviderMonthlyData = json.data;
+    }
+  } catch (e) {
+    console.warn('Could not reach bridge for game provider monthly data.', e);
+  }
+  gameProviderMonthlyLoaded = true;
+}
+
+async function saveGameProviderToBridge(provider) {
+  try {
+    const res = await fetch(BRIDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'saveGameProvider', provider: provider })
+    });
+    return await res.json();
+  } catch (e) {
+    console.error('Could not save game provider to bridge', e);
+    return { success: false };
+  }
+}
+
+async function deleteGameProviderFromBridge(id) {
+  try {
+    await fetch(BRIDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'deleteGameProvider', id: id })
+    });
+  } catch (e) {
+    console.error('Could not delete game provider from bridge', e);
+  }
+}
+
+async function saveGameProviderMonthlyToBridge(key, rowData) {
+  try {
+    await fetch(BRIDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'saveGameProviderMonthly', key: key, rowData: rowData })
+    });
+  } catch (e) {
+    console.error('Could not save game provider monthly amount to bridge', e);
+  }
+}
+
+const ALL_PROVIDER_COMPANIES = ['MWS', 'Asobi', 'Metawin'];
+
+function openGameProviderEditModal(providerId) {
+  const modal = document.getElementById('gameProviderEditModal');
+  const title = document.getElementById('gameProviderEditModalTitle');
+  const body = document.getElementById('gameProviderEditModalBody');
+
+  const isNew = !providerId;
+  const p = isNew ? {} : GAME_PROVIDERS_DATA.find(x => x.id === providerId);
+  title.textContent = isNew ? 'Add Provider' : 'Edit Provider';
+
+  const currentCompanies = (!isNew && p.companies) ? p.companies : [];
+
+  let html = `<div class="psp-form-row"><label>Provider Name</label><input type="text" id="gpedit_name" value="${(p.name || '').replace(/"/g,'&quot;')}"></div>`;
+  html += `<div class="psp-form-row" style="flex-direction:column; align-items:flex-start;"><label style="margin-bottom:6px;">Company</label>`;
+  ALL_PROVIDER_COMPANIES.forEach(c => {
+    const checked = currentCompanies.includes(c) ? 'checked' : '';
+    html += `<label style="display:flex; align-items:center; gap:6px; font-size:12px; margin-bottom:4px;"><input type="checkbox" class="gpedit_company" value="${c}" ${checked}> ${c}</label>`;
+  });
+  html += `</div>`;
+  html += `<button class="cal-nav-btn" id="gameProviderSaveBtn" style="width:100%; margin-top:14px; background:#000; border-color:#0ABAB5; color:#0ABAB5;">Save</button>`;
+  if (!isNew) {
+    html += `<button class="cal-nav-btn" id="gameProviderDeleteBtn" style="width:100%; margin-top:8px; background:#000; border-color:#EF4444; color:#EF4444;">Delete Provider</button>`;
+  }
+
+  body.innerHTML = html;
+
+  document.getElementById('gameProviderSaveBtn').addEventListener('click', async () => {
+    const selectedCompanies = Array.from(document.querySelectorAll('.gpedit_company:checked')).map(el => el.value);
+    const updated = isNew ? {} : Object.assign({}, p);
+    updated.name = document.getElementById('gpedit_name').value;
+    updated.companies = selectedCompanies;
+
+    await saveGameProviderToBridge(updated);
+    await loadGameProvidersFromBridge();
+    modal.style.display = 'none';
+    populateGameProviderCompanyFilter();
+    renderGameProvidersTable();
+    renderGameProvidersCards();
+    renderGameProviderMonthlyTable();
+  });
+
+  if (!isNew) {
+    document.getElementById('gameProviderDeleteBtn').addEventListener('click', async () => {
+      if (!confirm(`Remove ${p.name} from Game Providers? This cannot be undone.`)) return;
+      await deleteGameProviderFromBridge(providerId);
+      GAME_PROVIDERS_DATA = GAME_PROVIDERS_DATA.filter(x => x.id !== providerId);
+      modal.style.display = 'none';
+      renderGameProvidersTable();
+      renderGameProvidersCards();
+      renderGameProviderMonthlyTable();
+    });
+  }
+
+  modal.style.display = 'flex';
+}
+
+document.getElementById('gameProviderEditModalClose').addEventListener('click', () => {
+  document.getElementById('gameProviderEditModal').style.display = 'none';
+});
+document.getElementById('gameProviderEditModal').addEventListener('click', (e) => {
+  if (e.target.id === 'gameProviderEditModal') document.getElementById('gameProviderEditModal').style.display = 'none';
+});
+document.getElementById('addGameProviderBtn').addEventListener('click', () => {
+  openGameProviderEditModal(null);
+});
+
+function renderGameProvidersCards() {
+  const companies = [...new Set(GAME_PROVIDERS_DATA.flatMap(p => p.companies))];
+  document.getElementById('gameProvidersCards').innerHTML = `
+    <div class="card"><div class="card-label">Total Providers</div><div class="card-value">${GAME_PROVIDERS_DATA.length}</div></div>
+    <div class="card"><div class="card-label">Companies</div><div class="card-value">${companies.length}</div></div>
+  `;
+}
+
+function populateGameProviderCompanyFilter() {
+  const sel = document.getElementById('gameProviderCompanyFilter');
+  if (sel.options.length > 1) return;
+  ALL_PROVIDER_COMPANIES.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    sel.appendChild(opt);
+  });
+}
+
+function renderGameProvidersTable() {
+  const companyFilter = document.getElementById('gameProviderCompanyFilter').value;
+  const search = document.getElementById('gameProviderSearch').value.toLowerCase();
+
+  let visible = GAME_PROVIDERS_DATA;
+  if (companyFilter) visible = visible.filter(p => p.companies.includes(companyFilter));
+  if (search) visible = visible.filter(p => p.name.toLowerCase().includes(search));
+
+  visible = [...visible].sort((a,b) => a.name.localeCompare(b.name));
+
+  const tbody = document.getElementById('gameProvidersBody');
+  tbody.innerHTML = '';
+  visible.forEach(p => {
+    const companyBadges = p.companies.map(c => `<span class="game-provider-company-badge">${c}</span>`).join(' ');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${p.name}</td>
+      <td>${companyBadges}</td>
+      <td><button class="status-btn" style="background:#000; border:1px solid #0ABAB5; color:#0ABAB5;">Edit</button></td>
+    `;
+    tr.querySelector('button').addEventListener('click', () => openGameProviderEditModal(p.id));
+    tbody.appendChild(tr);
+  });
+
+  if (visible.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999; padding:20px;">No providers match.</td></tr>';
+  }
+}
+
+function populateGameProviderMonthSelect() {
+  const sel = document.getElementById('gameProviderMonthSelect');
+  if (sel.options.length > 0) return;
+  const months = [];
+  const base = new Date(TODAY.getFullYear(), TODAY.getMonth(), 1);
+  for (let i = -11; i <= 1; i++) {
+    const d = new Date(base.getFullYear(), base.getMonth() + i, 1);
+    const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+    const label = d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    months.push([key, label]);
+  }
+  months.forEach(([key, label]) => {
+    const opt = document.createElement('option');
+    opt.value = key; opt.textContent = label;
+    if (key === gameProviderCurrentMonth) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function renderGameProviderMonthlyTable() {
+  const tbody = document.getElementById('gameProviderMonthlyBody');
+  tbody.innerHTML = '';
+
+  const sorted = [...GAME_PROVIDERS_DATA].sort((a,b) => a.name.localeCompare(b.name));
+  sorted.forEach(p => {
+    const key = p.id + '|' + gameProviderCurrentMonth;
+    const existing = gameProviderMonthlyData[key];
+    const amountVal = existing && existing.Amount !== undefined && existing.Amount !== '' ? existing.Amount : '';
+    const companyBadges = p.companies.map(c => `<span class="game-provider-company-badge">${c}</span>`).join(' ');
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${p.name}</td>
+      <td>${companyBadges}</td>
+      <td><input type="number" step="0.01" class="gp-monthly-input" data-provider-id="${p.id}" value="${amountVal}" style="width:120px;"></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.querySelectorAll('.gp-monthly-input').forEach(input => {
+    input.addEventListener('change', async (e) => {
+      const providerId = e.target.getAttribute('data-provider-id');
+      const key = providerId + '|' + gameProviderCurrentMonth;
+      const amount = e.target.value === '' ? '' : parseFloat(e.target.value);
+      gameProviderMonthlyData[key] = { ProviderId: providerId, Month: gameProviderCurrentMonth, Amount: amount };
+      await saveGameProviderMonthlyToBridge(key, { ProviderId: providerId, Month: gameProviderCurrentMonth, Amount: amount });
+    });
+  });
+}
+
+document.getElementById('gameProviderMonthSelect').addEventListener('change', (e) => {
+  gameProviderCurrentMonth = e.target.value;
+  renderGameProviderMonthlyTable();
+});
+
+async function renderGameProvidersTab() {
+  if (!gameProvidersLoadedFromBridge) {
+    await loadGameProvidersFromBridge();
+  }
+  if (!gameProviderMonthlyLoaded) {
+    await loadGameProviderMonthlyFromBridge();
+  }
+  populateGameProviderCompanyFilter();
+  populateGameProviderMonthSelect();
+  renderGameProvidersCards();
+  renderGameProvidersTable();
+  renderGameProviderMonthlyTable();
+}
+
+document.getElementById('gameProviderCompanyFilter').addEventListener('change', renderGameProvidersTable);
+document.getElementById('gameProviderSearch').addEventListener('input', renderGameProvidersTable);
+
+
 const TODAY = new Date(); // uses the real current date/time whenever the dashboard is opened
 TODAY.setHours(0, 0, 0, 0); // normalize to midnight so date-only comparisons work correctly
 const LARGE_ITEM_THRESHOLD = 50000; // flag calendar days where the single biggest invoice exceeds this
@@ -2154,8 +2473,8 @@ document.getElementById('resetLink').addEventListener('click', async () => {
 });
 
 // ============ TAB SWITCHING ============
-const ALL_TABS = ['tabBalances', 'tabCrypto', 'tabForecast', 'tabPSP', 'tabInvoiceList', 'tabAffiliates', 'tabContractors', 'tabLiveTest'];
-const ALL_VIEWS = ['viewBalances', 'viewCrypto', 'viewForecast', 'viewPSP', 'viewInvoiceList', 'viewAffiliates', 'viewContractors', 'viewLiveTest'];
+const ALL_TABS = ['tabBalances', 'tabCrypto', 'tabForecast', 'tabPSP', 'tabInvoiceList', 'tabAffiliates', 'tabContractors', 'tabGameProviders', 'tabLiveTest'];
+const ALL_VIEWS = ['viewBalances', 'viewCrypto', 'viewForecast', 'viewPSP', 'viewInvoiceList', 'viewAffiliates', 'viewContractors', 'viewGameProviders', 'viewLiveTest'];
 
 function switchToTab(tabId, viewId, renderFn) {
   ALL_TABS.forEach(t => document.getElementById(t).classList.toggle('active', t === tabId));
@@ -2193,6 +2512,10 @@ document.getElementById('tabAffiliates').addEventListener('click', () => {
 
 document.getElementById('tabContractors').addEventListener('click', () => {
   switchToTab('tabContractors', 'viewContractors', renderContractorsTab);
+});
+
+document.getElementById('tabGameProviders').addEventListener('click', () => {
+  switchToTab('tabGameProviders', 'viewGameProviders', renderGameProvidersTab);
 });
 
 // ============ FORECAST BY DAY VIEW ============
