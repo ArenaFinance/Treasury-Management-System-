@@ -645,7 +645,9 @@
   .gp-company-header .gp-toggle.open { transform: rotate(90deg); }
   .gp-company-body { display: none; }
   .gp-company-body.open { display: block; }
-  .gp-yearly-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .gp-yearly-table { width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed; }
+  .gp-yearly-table th:first-child, .gp-yearly-table td:first-child { width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gp-yearly-table th:last-child, .gp-yearly-table td:last-child { width: 80px; }
   .gp-yearly-table th, .gp-yearly-table td { padding: 5px 7px; text-align: right; border-bottom: 1px solid #1A1A1A; white-space: nowrap; }
   .gp-yearly-table th:first-child, .gp-yearly-table td:first-child { text-align: left; }
   .gp-yearly-table th { color: #999; font-weight: bold; background: #0d0d0d; }
@@ -663,7 +665,13 @@
   .gp-yearly-table.gpc-zoom input { border-color: #F97316; }
   .gp-yearly-table.gpc-zoom .gp-total-col { color: #F97316; }
   .gp-yearly-table.gpc-zoom th { color: #F97316; }
-  .gp-reference-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .gp-reference-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+  .gp-reference-table th:nth-child(1), .gp-reference-table td:nth-child(1) { width: 26%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gp-reference-table th:nth-child(2), .gp-reference-table td:nth-child(2) { width: 14%; }
+  .gp-reference-table th:nth-child(3), .gp-reference-table td:nth-child(3) { width: 10%; }
+  .gp-reference-table th:nth-child(4), .gp-reference-table td:nth-child(4) { width: 20%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gp-reference-table th:nth-child(5), .gp-reference-table td:nth-child(5) { width: 20%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gp-reference-table th:nth-child(6), .gp-reference-table td:nth-child(6) { width: 10%; }
   .gp-reference-table th, .gp-reference-table td { padding: 7px 10px; text-align: left; border-bottom: 1px solid #1A1A1A; }
   .gp-reference-table th { color: #999; font-weight: bold; background: #0d0d0d; font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px; }
   .crypto-entry-panel {
@@ -2016,7 +2024,7 @@ async function saveGameProviderMonthlyToBridge(key, rowData) {
   }
 }
 
-const ALL_PROVIDER_COMPANIES = ['MWS', 'Asobi', 'Metawin', 'Zoom'];
+const ALL_PROVIDER_COMPANIES = ['Asobi', 'Metawin', 'MWS', 'Zoom'];
 
 function companyBadgeClass(company) {
   const c = (company || '').toLowerCase();
@@ -2154,7 +2162,7 @@ function renderGameProvidersTable() {
       const companyBadges = p.companies.map(c => `<span class="game-provider-company-badge ${companyBadgeClass(c)}">${c}</span>`).join(' ');
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td style="text-align:left;">${p.name}</td>
+        <td style="text-align:left;" title="${p.name}">${p.name}</td>
         <td style="text-align:left;">${companyBadges}</td>
         <td style="text-align:left;">${p.currency || 'USD'}</td>
         <td style="text-align:left;">${p.reconciledBy || '<span style="color:#666;">—</span>'}</td>
@@ -2229,7 +2237,7 @@ function renderGameProviderYearly() {
     const tbody = document.createElement('tbody');
     providers.forEach(p => {
       const tr = document.createElement('tr');
-      let rowHtml = `<td>${p.name} <span style="color:#666; font-size:9px;">(${p.currency || 'USD'})</span></td>`;
+      let rowHtml = `<td title="${p.name} (${p.currency || 'USD'})">${p.name} <span style="color:#666; font-size:9px;">(${p.currency || 'USD'})</span></td>`;
       let rowTotal = 0;
       for (let m = 1; m <= 12; m++) {
         const monthKey = gameProviderCurrentYear + '-' + String(m).padStart(2, '0');
