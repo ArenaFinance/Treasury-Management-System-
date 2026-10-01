@@ -448,6 +448,10 @@
   .cal-psp-brand-table .cpt-net { border-top: 1px dotted #333; margin-top: 1px; padding-top: 1px; font-weight: bold; }
   .cal-psp-brand-table .cpt-net span.positive { color: #22C55E; }
   .cal-psp-brand-table .cpt-net span.negative { color: #E85D04; }
+  .cal-psp-brand-table .cpt-day-net { border-top: 1px solid #555; margin-top: 3px; padding-top: 3px; font-weight: bold; font-size: 10px; }
+  .cal-psp-brand-table .cpt-day-net .cpt-label { color: #ccc; }
+  .cal-psp-brand-table .cpt-day-net span.positive { color: #22C55E; }
+  .cal-psp-brand-table .cpt-day-net span.negative { color: #E85D04; }
 
   .psp-form-row {
     display: flex;
@@ -3016,6 +3020,9 @@ function renderPSPCalendar() {
           });
           html += '</div>';
         });
+        const dayNet = Object.values(brandFigures).reduce((sum, b) => sum + (b.in - b.out), 0);
+        const dayNetCls = dayNet >= 0 ? 'positive' : 'negative';
+        html += `<div class="cpt-row cpt-day-net"><span class="cpt-label">Day Net</span><span class="${dayNetCls}" style="grid-column: span 3; text-align:right;">${dayNet.toLocaleString(undefined,{maximumFractionDigits:0})}</span></div>`;
         table.innerHTML = html;
         cellDiv.appendChild(table);
       }
