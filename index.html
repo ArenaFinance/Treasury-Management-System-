@@ -1636,11 +1636,12 @@ function normalizeCompanyName(name) {
     .trim();
 }
 
-// Precompute normalized affiliate names once for matching
-const AFFILIATES_NORMALIZED = AFFILIATES_DATA.map(a => ({
-  ...a,
-  normalized: normalizeCompanyName(a.name)
-}));
+function getAffiliatesNormalized() {
+  return AFFILIATES_DATA.map(a => ({
+    ...a,
+    normalized: normalizeCompanyName(a.name)
+  }));
+}
 
 // Returns the matching affiliate record for a given vendor name, or null if no match.
 // Uses a normalized "contains" match in both directions to handle naming variations.
@@ -1658,7 +1659,7 @@ function findAffiliateMatch(vendorName) {
   if (!vendorName) return null;
   const normVendor = normalizeCompanyName(vendorName);
   if (!normVendor) return null;
-  for (const aff of AFFILIATES_NORMALIZED) {
+  for (const aff of getAffiliatesNormalized()) {
     if (!aff.normalized) continue;
     if (normVendor.includes(aff.normalized) || aff.normalized.includes(normVendor)) {
       return aff;
