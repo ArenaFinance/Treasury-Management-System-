@@ -1910,7 +1910,7 @@ let GAME_PROVIDERS_DATA = [{"name": "Gametech (MWS)", "companies": ["MWS"], "id"
 let gameProvidersLoadedFromBridge = false;
 let gameProviderMonthlyData = {};
 let gameProviderMonthlyLoaded = false;
-let gameProviderCurrentMonth = toDateKey(TODAY).slice(0, 7);
+let gameProviderCurrentMonth = null; // set lazily on first use, once TODAY is available
 
 async function loadGameProvidersFromBridge() {
   try {
@@ -2092,6 +2092,9 @@ function renderGameProvidersTable() {
 }
 
 function populateGameProviderMonthSelect() {
+  if (gameProviderCurrentMonth === null) {
+    gameProviderCurrentMonth = toDateKey(TODAY).slice(0, 7);
+  }
   const sel = document.getElementById('gameProviderMonthSelect');
   if (sel.options.length > 0) return;
   const months = [];
