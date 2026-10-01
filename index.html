@@ -112,7 +112,7 @@
   .days-tag.soon { background: #FF8C00; color: #000; }
   .days-tag.later { background: #2A2A2A; color: #999; }
   .affiliate-badge {
-    background: #F5F5F5;
+    background: #EC4899;
     color: #000;
     font-size: 9px;
     font-weight: bold;
@@ -152,7 +152,17 @@
   .brand-dot.brand-badge-metawin { background: #F5F5F5; }
   .brand-dot.brand-badge-default { background: #999; }
   .contractor-badge {
-    background: #22C55E;
+    background: #06B6D4;
+    color: #000;
+    font-size: 9px;
+    font-weight: bold;
+    border-radius: 3px;
+    padding: 1px 4px;
+    margin-left: 4px;
+    cursor: help;
+  }
+  .game-provider-badge {
+    background: #0ABAB5;
     color: #000;
     font-size: 9px;
     font-weight: bold;
@@ -1133,6 +1143,7 @@
     <option value="">All</option>
     <option value="affiliates">Affiliates</option>
     <option value="contractors">Contractors</option>
+    <option value="gameproviders">Game Providers</option>
   </select>
   <input type="text" id="search" placeholder="Search vendor or invoice...">
   <span class="reset-link" id="exportOutstandingLink">Export outstanding invoices (CSV)</span>
@@ -1519,6 +1530,32 @@ function findContractorMatch(vendorName) {
     if (!c.normalized) continue;
     if (normVendor.includes(c.normalized) || c.normalized.includes(normVendor)) {
       return c;
+    }
+  }
+  return null;
+}
+
+function getGameProvidersNormalized() {
+  return GAME_PROVIDERS_DATA.map(p => ({
+    ...p,
+    normalized: normalizeCompanyName(p.name)
+  }));
+}
+
+// Returns the matching game provider record for a given vendor name, or null if no match.
+function findGameProviderMatch(vendorName) {
+  if (!vendorName) return null;
+  const normVendor = normalizeCompanyName(vendorName);
+  if (!normVendor) return null;
+  for (const p of getGameProvidersNormalized()) {
+    if (!p.normalized) continue;
+    // Short provider names (e.g. "IGE") need a whole-word match to avoid false
+    // positives like matching inside unrelated longer words.
+    if (p.normalized.length <= 4) {
+      const wordBoundaryRegex = new RegExp('\\b' + p.normalized.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b');
+      if (wordBoundaryRegex.test(normVendor)) return p;
+    } else if (normVendor.includes(p.normalized) || p.normalized.includes(normVendor)) {
+      return p;
     }
   }
   return null;
@@ -2466,6 +2503,7 @@ function renderTable() {
   if (curFilter) visible = visible.filter(r => r.currency === curFilter);
   if (catFilter === 'affiliates') visible = visible.filter(r => findAffiliateMatch(r.vendor) !== null);
   if (catFilter === 'contractors') visible = visible.filter(r => findContractorMatch(r.vendor) !== null);
+  if (catFilter === 'gameproviders') visible = visible.filter(r => findGameProviderMatch(r.vendor) !== null);
   if (search) visible = visible.filter(r =>
     (r.vendor && r.vendor.toLowerCase().includes(search)) ||
     (r.invoiceNo && r.invoiceNo.toLowerCase().includes(search))
@@ -2495,11 +2533,13 @@ function renderTable() {
     tr.id = 'row-' + r.invoiceNo;
     const affiliateMatch = findAffiliateMatch(r.vendor);
     const contractorMatch = findContractorMatch(r.vendor);
+    const gameProviderMatch = findGameProviderMatch(r.vendor);
     const affiliateBadge = affiliateMatch ? `<span class="affiliate-badge" title="Matched affiliate: ${affiliateMatch.name} — covers ${affiliateMatch.brands.join(', ')}">AFF</span>` : '';
     const contractorBadge = contractorMatch ? `<span class="contractor-badge" title="Matched contractor: ${contractorMatch.name} — ${contractorMatch.jobRole || 'role n/a'}, ${contractorMatch.brand || 'brand n/a'}, ${contractorMatch.company || 'company n/a'}, Terms: ${contractorMatch.paymentTerms || 'TBD'}">CON</span>` : '';
+    const gameProviderBadge = gameProviderMatch ? `<span class="game-provider-badge" title="Matched game provider: ${gameProviderMatch.name} — ${gameProviderMatch.companies.join(', ')}">GP</span>` : '';
     tr.innerHTML = `
       <td>${r.entity || ''}</td>
-      <td>${r.vendor || ''} ${affiliateBadge} ${contractorBadge}</td>
+      <td>${r.vendor || ''} ${affiliateBadge} ${contractorBadge} ${gameProviderBadge}</td>
       <td>${r.theirRef || '-'}</td>
       <td style="color:#888; font-size:10px;">${r.invoiceNo || ''}</td>
       <td>${r.dueDate || '-'}</td>
@@ -2568,6 +2608,7 @@ document.getElementById('exportOutstandingLink').addEventListener('click', () =>
   if (curFilter) visible = visible.filter(r => r.currency === curFilter);
   if (catFilter === 'affiliates') visible = visible.filter(r => findAffiliateMatch(r.vendor) !== null);
   if (catFilter === 'contractors') visible = visible.filter(r => findContractorMatch(r.vendor) !== null);
+  if (catFilter === 'gameproviders') visible = visible.filter(r => findGameProviderMatch(r.vendor) !== null);
   if (search) visible = visible.filter(r =>
     (r.vendor && r.vendor.toLowerCase().includes(search)) ||
     (r.invoiceNo && r.invoiceNo.toLowerCase().includes(search))
